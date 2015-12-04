@@ -34,7 +34,7 @@ public class JButtonTransparente extends JButton {
 		// TODO Auto-generated constructor stub
 	}
 	public void setOpaque() {
-		this.setOpaque(false);
+		this.setOpaque(true);
 		this.setContentAreaFilled(false);
 		this.setBorderPainted(false);
 	}

@@ -1,6 +1,7 @@
 package Clases;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,6 +12,7 @@ import javax.swing.JButton;
 import Utilidades.JButtonTransparente;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.GridLayout;
 
 public class MenuInicial extends JFrame {
 
@@ -40,23 +42,25 @@ public class MenuInicial extends JFrame {
 		setBounds(100, 100, 823, 491);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JPanelIMG panelIMG = new JPanelIMG();
-		panelIMG.setBackground("img/Menu.jpg");
-		contentPane.add(panelIMG, BorderLayout.CENTER);
-		
-		JButtonTransparente btntrnsprntAdventure = new JButtonTransparente();
-		btntrnsprntAdventure.setBounds(263, 71, 395, 52);
-		btntrnsprntAdventure.addActionListener(new ActionListener() {
+		JButtonTransparente buttonTransparente = new JButtonTransparente();
+		buttonTransparente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btntrnsprntAdventure.setText("Jugar");
-		btntrnsprntAdventure.setOpaque();
+		contentPane.setLayout(new BorderLayout(0, 0));
+		buttonTransparente.setBounds(327, 134, 347, 34);
+		buttonTransparente.setOpaque();
+		buttonTransparente.setText("Jugar");
+		buttonTransparente.setPreferredSize(new Dimension(395, 52));
+		buttonTransparente.setMinimumSize(new Dimension(395, 52));
+		
+		JPanelIMG panelIMG = new JPanelIMG();
+		panelIMG.setBackground("img/MenuPrincipal.jpg");
+		panelIMG.add(buttonTransparente);
 		panelIMG.setLayout(null);
-		panelIMG.add(btntrnsprntAdventure);
+		contentPane.add(panelIMG);
 	}
 
 }
