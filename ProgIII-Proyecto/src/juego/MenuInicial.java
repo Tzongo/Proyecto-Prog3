@@ -7,9 +7,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import Utilidades.JPanelIMG;
+
+import utilidades.JButtonTransparente;
+import utilidades.JPanelIMG;
+
 import javax.swing.JButton;
-import Utilidades.JButtonTransparente;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;

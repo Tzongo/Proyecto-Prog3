@@ -1,4 +1,4 @@
-package Utilidades;
+package utilidades;
 
 import javax.swing.Action;
 import javax.swing.Icon;
