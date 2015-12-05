@@ -2,6 +2,7 @@
 
 import ventanas.*;
 import juego.*;
+import accion.*;
 
 public class DeustoCrash
 {
@@ -165,10 +166,10 @@ public class DeustoCrash
     }
     
     public static void main(final String[] args) {
-        final int FILAS_COLS = 8;
+        final int FILAS_COLS = 3;
         int numMovs = 0;
-        final VentanaJuegoTablero v = new VentanaJuegoTablero(900, 600, FILAS_COLS, FILAS_COLS, true);
-        DeustoCrash.tablero = new TableroCaramelos(FILAS_COLS, v);
+        final VentanaJuegoTablero v = new VentanaJuegoTablero(562, 315, FILAS_COLS, 10, true);
+        DeustoCrash.tablero = new TableroBichos(FILAS_COLS, v);
         for (int f = 0; f < FILAS_COLS; ++f) {
             for (int c = 0; c < FILAS_COLS; ++c) {
                 if (DeustoCrash.tablero.getObjetoDC(new CoordTablero(f, c)) instanceof Muro) {

@@ -78,7 +78,7 @@ public class TableroBichos
             if (this.tablero[filaOculta][c] == null) {
                 String color = "";
                 color = TableroBichos.colores[TableroBichos.r.nextInt(TableroBichos.colores.length)];
-                final CarameloUD caram = new CarameloUD(new CoordTablero(filaOculta - 1, c), color, this.anchoCaram, this.altoCaram, this);
+                final Planta caram = new sol(new CoordTablero(filaOculta - 1, c), color, this.anchoCaram, this.altoCaram, this);
                 this.tablero[filaOculta][c] = caram;
                 if (this.miVentana != null) {
                     final CoordTablero ct = new CoordTablero(filaOculta - 1, c);
@@ -88,19 +88,19 @@ public class TableroBichos
         }
     }
     
-    public void setCaramelo(final CarameloUD c, final CoordTablero ct) {
+    public void setCaramelo(final Planta c, final CoordTablero ct) {
         this.tablero[ct.getFila() + 1][ct.getColumna()] = c;
     }
     
-    public CarameloUD getCaramelo(final CoordTablero ct) {
-        final ObjetoDeustoCrash odc = this.tablero[ct.getFila() + 1][ct.getColumna()];
-        if (odc instanceof CarameloUD) {
-            return (CarameloUD)odc;
+    public Planta getCaramelo(final CoordTablero ct) {
+    	final Bicho odc = this.tablero[ct.getFila() + 1][ct.getColumna()];
+        if (odc instanceof Planta) {
+            return (Planta)odc;
         }
         return null;
     }
     
-    public ObjetoDeustoCrash getObjetoDC(final CoordTablero ct) {
+    public Bicho getObjetoDC(final CoordTablero ct) {
         if (ct.getFila() < -1 || ct.getColumna() < 0 || ct.getFila() >= this.getFilas() || ct.getColumna() >= this.getColumnas()) {
             return null;
         }
@@ -120,7 +120,7 @@ public class TableroBichos
     }
     
     public void intercambiaCaramelos(final CoordTablero origen, final CoordTablero destino) {
-        final ObjetoDeustoCrash temp = this.tablero[destino.getFila() + 1][destino.getColumna()];
+        final Bicho temp = this.tablero[destino.getFila() + 1][destino.getColumna()];
         final CoordTablero tempCT = this.tablero[destino.getFila() + 1][destino.getColumna()].getPosicionTablero();
         this.tablero[destino.getFila() + 1][destino.getColumna()].setPosicionTablero(this.tablero[origen.getFila() + 1][origen.getColumna()].getPosicionTablero());
         this.tablero[origen.getFila() + 1][origen.getColumna()].setPosicionTablero(tempCT);
@@ -141,7 +141,7 @@ public class TableroBichos
                 }
                 else if (this.tablero[f][c] instanceof Planta) {
                     final Planta cud = (Planta)this.tablero[f][c];
-                    ret = String.valueOf(ret) + cud.getColor().substring(0, 1) + " ";
+                    ret = String.valueOf(ret) + cud.getFuncion() + " ";
                 }
                 else {
                     ret = String.valueOf(ret) + "* ";

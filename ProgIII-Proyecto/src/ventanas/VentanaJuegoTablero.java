@@ -40,10 +40,10 @@ public class VentanaJuegoTablero extends JFrame
         this.animacionesPendientes = new ArrayList<Animacion>();
         this.pRelleno1 = new JPanel();
         this.pRelleno2 = new JPanel();
-        this.anchVentana = anchuraVent;
-        this.altVentana = alturaVent;
-        this.filasTablero = filas;
-        this.colsTablero = columnas;
+        this.anchVentana = anchuraVent;//562
+        this.altVentana = alturaVent;//315
+        this.filasTablero = filas;//3
+        this.colsTablero = columnas;//10
         this.casillasCuadradas = casCuadradas;
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
