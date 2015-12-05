@@ -5,11 +5,17 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
 import juego.*;
+import utilidades.JFrameIMG;
+import utilidades.JPanelIMG;
 
-public class VentanaJuegoTablero extends JFrame
+public class VentanaJuegoTablero extends JFrameIMG
 {
-    private JLabel lMensaje;
-    private JPanel pAreaJuego;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JLabel lMensaje;
+    private JPanelIMG pAreaJuego;
     private int anchVentana;
     private int altVentana;
     private int filasTablero;
@@ -32,7 +38,7 @@ public class VentanaJuegoTablero extends JFrame
     
     public VentanaJuegoTablero(final int anchuraVent, final int alturaVent, final int filas, final int columnas, final boolean casCuadradas) {
         this.lMensaje = new JLabel(" ");
-        this.pAreaJuego = new JPanel();
+        this.pAreaJuego = new JPanelIMG();
         this.pulsacionRaton = null;
         this.tiempoAnimMsg = 1000L;
         this.tiempoFrameAnimMsg = this.tiempoAnimMsg / 40L;
@@ -40,23 +46,24 @@ public class VentanaJuegoTablero extends JFrame
         this.animacionesPendientes = new ArrayList<Animacion>();
         this.pRelleno1 = new JPanel();
         this.pRelleno2 = new JPanel();
-        this.anchVentana = anchuraVent;//562
-        this.altVentana = alturaVent;//315
-        this.filasTablero = filas;//3
-        this.colsTablero = columnas;//10
+        this.anchVentana = 562;//anchuraVent;//562
+        this.altVentana = 315;//alturaVent;//315
+        this.filasTablero =3;// filas;//3
+        this.colsTablero =10;// columnas;//10
         this.casillasCuadradas = casCuadradas;
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 public void run() {
                     VentanaJuegoTablero.access$2(VentanaJuegoTablero.this, new ArrayList());
                     VentanaJuegoTablero.this.setDefaultCloseOperation(1);
+                    VentanaJuegoTablero.this.setBackground("img/tablero-american-suburbs.png");
                     VentanaJuegoTablero.this.setSize(VentanaJuegoTablero.this.anchVentana, VentanaJuegoTablero.this.altVentana);
                     VentanaJuegoTablero.this.setLocationRelativeTo(null);
                     VentanaJuegoTablero.this.setResizable(false);
                     VentanaJuegoTablero.this.setTitle("Ventana de juego de tablero");
                     VentanaJuegoTablero.this.getContentPane().add(VentanaJuegoTablero.this.pAreaJuego, "Center");
                     VentanaJuegoTablero.this.getContentPane().add(VentanaJuegoTablero.this.lMensaje, "South");
-                    VentanaJuegoTablero.this.pAreaJuego.setBackground(Color.white);
+                    //VentanaJuegoTablero.this.pAreaJuego.setBackground("img/tablero-american-suburbs.png");
                     VentanaJuegoTablero.this.pAreaJuego.setLayout(null);
                     VentanaJuegoTablero.this.lMensaje.setHorizontalAlignment(0);
                     VentanaJuegoTablero.this.setVisible(true);
