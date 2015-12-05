@@ -1,4 +1,4 @@
-package Clases;
+package juego;
 
 public abstract class Planta extends Bicho {
 	private int funcion;//1 ataque(disparador)	,2 crear soles(sol)

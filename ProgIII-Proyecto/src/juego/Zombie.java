@@ -1,4 +1,4 @@
-package Clases;
+package juego;
 
 public abstract class Zombie extends Bicho {
 	private int ataque;//ataque

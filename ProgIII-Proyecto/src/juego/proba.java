@@ -1,4 +1,4 @@
-package Clases;
+package juego;
 
 public class proba {
 

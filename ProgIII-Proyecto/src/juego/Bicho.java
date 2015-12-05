@@ -1,4 +1,4 @@
-package Clases;
+package juego;
 
 public abstract class Bicho {
 	//prueba

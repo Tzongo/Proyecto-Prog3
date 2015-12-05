@@ -1,4 +1,4 @@
-package Clases;
+package juego;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

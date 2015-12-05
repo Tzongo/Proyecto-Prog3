@@ -1,4 +1,4 @@
-package Clases;
+package juego;
 
 public class Sol extends Planta {
 
