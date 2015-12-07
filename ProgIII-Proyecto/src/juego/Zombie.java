@@ -12,6 +12,11 @@ public abstract class Zombie extends Bicho {
 		this.ataque = ataque;
 		this.velocidad = velocidad;
 	}
+	
+	public Zombie(CoordTablero ct, String nomFicGrafico, int ancho, int alto, TableroBichos tc) {
+		super(ct, nomFicGrafico, ancho, alto, tc);
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public int getVida() {

@@ -1,8 +1,10 @@
 package juego;
 
-import juego.*;
+import accion.Movible;
+import accion.Puntuable;
+import accion.Quitable;
 
-public abstract class Bicho {
+public abstract class Bicho implements Quitable, Puntuable, Movible{
 	// prueba
 
 	protected int vida;
@@ -13,6 +15,7 @@ public abstract class Bicho {
 	public Bicho() {
 		// TODO Auto-generated constructor stub
 	}
+	
 
 	public int getVida() {
 		return vida;
@@ -26,7 +29,7 @@ public abstract class Bicho {
 			final TableroBichos tc) {
 		this.posicion = ct;
 		this.tablero = tc;
-		this.objeto = new ObjetoDeJuego(String.valueOf(nomFicGrafico) + ".jpg", true, ancho, alto);
+		this.objeto = new ObjetoDeJuego(String.valueOf(nomFicGrafico) + ".png", true, ancho, alto);
 	}
 
 	public ObjetoDeJuego getObjeto() {

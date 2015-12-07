@@ -8,8 +8,8 @@ public class TableroBichos
     private Bicho[][] tablero;
     private int filas;
     private int columnas;
-    private int anchoCaram;
-    private int altoCaram;
+    private int anchoBicho;
+    private int altoBicho;
     private VentanaJuegoTablero miVentana;
     private static String[] colores;
     private static Random r;
@@ -19,12 +19,12 @@ public class TableroBichos
         TableroBichos.r = new Random();
     }
     
-    public TableroBichos(final int f, final int c, final int anchoCaram, final int altoCaram, final VentanaJuegoTablero v) {
+    public TableroBichos(final int f, final int c, final int anchoBicho, final int altoBicho, final VentanaJuegoTablero v) {
         this.filas = f;
         this.columnas = c;
         this.tablero = new Bicho[f + 1][c];
         this.miVentana = v;
-        this.distribuyeCaramelosAlAzar(this.anchoCaram = anchoCaram, this.altoCaram = altoCaram);
+        this.distribuyeBichosAlAzar(this.anchoBicho = anchoBicho, this.altoBicho = altoBicho);
         if (this.miVentana != null) {
             this.addTableroAVentana(this.miVentana);
         }
@@ -34,8 +34,8 @@ public class TableroBichos
         this(fc, fc, v.getAnchoCasilla(), v.getAltoCasilla(), v);
     }
     
-    public TableroBichos(final int anchoCaram, final int altoCaram, final VentanaJuegoTablero v) {
-        this(6, 6, anchoCaram, altoCaram, v);
+    public TableroBichos(final int anchoBicho, final int altoBicho, final VentanaJuegoTablero v) {
+        this(4,4, anchoBicho, altoBicho, v);
     }
     
     private void addTableroAVentana(final VentanaJuegoTablero v) {
@@ -51,21 +51,21 @@ public class TableroBichos
         return this.miVentana;
     }
     
-    private void distribuyeCaramelosAlAzar(final int anchoCaram, final int altoCaram) {
+    private void distribuyeBichosAlAzar(final int anchoBicho, final int altoBicho) {
         for (int f = -1; f < this.filas; ++f) {
             for (int c = 0; c < this.columnas; ++c) {
                 if ((f == 0 || f == this.getFilas() - 1) && (c == 0 || c == this.getColumnas() - 1)) {
-                    final Fondo fondo = new Fondo(new CoordTablero(f, c), anchoCaram + 2, altoCaram + 2, this);
+                    final Minizombie fondo = new Minizombie(new CoordTablero(f, c), anchoBicho + 2, altoBicho + 2, this);
                     this.tablero[f + 1][c] = fondo;
                 }
-                else if (f == 1 && (c == 1 || c == this.getColumnas() - 2)) {
-                    final Muro muro = new Muro(new CoordTablero(f, c), anchoCaram, altoCaram, this);
+                /*else if (f == 1 && (c == 1 || c == this.getColumnas() - 2)) {
+                    final Muro muro = new Muro(new CoordTablero(f, c), anchoBicho, altoBicho, this);
                     this.tablero[f + 1][c] = muro;
-                }
+                }*/
                 else {
                     String color = "";
                     color = TableroBichos.colores[TableroBichos.r.nextInt(TableroBichos.colores.length)];
-                    final CarameloUD caram = new CarameloUD(new CoordTablero(f, c), color, anchoCaram, altoCaram, this);
+                    final Sol caram = new Sol(new CoordTablero(f, c), color, anchoBicho, altoBicho, this);
                     this.tablero[f + 1][c] = caram;
                 }
             }
@@ -78,7 +78,7 @@ public class TableroBichos
             if (this.tablero[filaOculta][c] == null) {
                 String color = "";
                 color = TableroBichos.colores[TableroBichos.r.nextInt(TableroBichos.colores.length)];
-                final Planta caram = new sol(new CoordTablero(filaOculta - 1, c), color, this.anchoCaram, this.altoCaram, this);
+                final Sol caram = new Sol(new CoordTablero(filaOculta - 1, c), color, this.anchoBicho, this.altoBicho, this);
                 this.tablero[filaOculta][c] = caram;
                 if (this.miVentana != null) {
                     final CoordTablero ct = new CoordTablero(filaOculta - 1, c);

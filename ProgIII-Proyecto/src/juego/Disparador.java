@@ -1,7 +1,11 @@
 package juego;
 
-public class Disparador extends Planta {
+import accion.Puntuable;
+import accion.Quitable;
+import juego.Puntuador;
 
+public class Disparador extends Planta implements Quitable, Puntuable{
+    private Puntuador miPuntuador;
 	public Disparador() {
 		// TODO Auto-generated constructor stub
 	}
@@ -10,6 +14,11 @@ public class Disparador extends Planta {
 		super(1, recarga, costo);
 		// TODO Auto-generated constructor stub
 	}
+	public Disparador(final CoordTablero ct, final String color, final int ancho, final int alto, final TableroBichos tc) {
+        super(ct, "Disparador", ancho, alto, tc);
+        this.miPuntuador = null;
+    }
+	
 
 	@Override
 	public int getVida() {
@@ -57,6 +66,23 @@ public class Disparador extends Planta {
 	public void setCosto(int costo) {
 		// TODO Auto-generated method stub
 		super.setCosto(costo);
+	}
+
+	@Override
+	public void setPuntuador(final Puntuador p) {
+        this.miPuntuador = p;
+    }
+
+	@Override
+	public void quitar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean mover() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

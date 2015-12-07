@@ -1,10 +1,18 @@
 package juego;
 
-public class Sol extends Planta {
+import accion.Puntuable;
+import accion.Quitable;
+import juego.Puntuador;
 
+public class Sol extends Planta implements Quitable, Puntuable{
+	private Puntuador miPuntuador;
 	public Sol() {
 		// TODO Auto-generated constructor stub
 	}
+	public Sol(final CoordTablero ct, final String color, final int ancho, final int alto, final TableroBichos tc) {
+        super(ct, "Sol", ancho, alto, tc);
+        this.miPuntuador =  null;
+    }
 	
 	public Sol( int recarga, int costo) {
 		super(2, recarga, costo);
@@ -57,6 +65,23 @@ public class Sol extends Planta {
 	public void setCosto(int costo) {
 		// TODO Auto-generated method stub
 		super.setCosto(costo);
+	}
+
+	@Override
+	public boolean mover() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setPuntuador(final Puntuador p) {
+        this.miPuntuador = p;
+    }
+
+	@Override
+	public void quitar() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

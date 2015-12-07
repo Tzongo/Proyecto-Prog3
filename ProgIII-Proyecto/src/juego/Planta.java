@@ -15,6 +15,11 @@ public abstract class Planta extends Bicho {
 		this.costo = costo;
 	}
 
+	public Planta(CoordTablero ct, String nomFicGrafico, int ancho, int alto, TableroBichos tc) {
+		super(ct, nomFicGrafico, ancho, alto, tc);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public int getVida() {
 		// TODO Auto-generated method stub

@@ -4,15 +4,15 @@ import ventanas.*;
 import juego.*;
 import accion.*;
 
-public class DeustoCrash
+public class PlantasVsZombies
 {
     private static TableroBichos tablero;
     private static int PAUSA_MOVIMIENTO_MS;
     private static Puntuador miPuntuador;
     
     static {
-        DeustoCrash.PAUSA_MOVIMIENTO_MS = 500;
-        DeustoCrash.miPuntuador = new Puntuador();
+        PlantasVsZombies.PAUSA_MOVIMIENTO_MS = 500;
+        PlantasVsZombies.miPuntuador = new Puntuador();
     }
     
     private static boolean buscaYQuitaLineas(final TableroBichos tc) {
@@ -169,11 +169,11 @@ public class DeustoCrash
         final int FILAS_COLS = 3;
         int numMovs = 0;
         final VentanaJuegoTablero v = new VentanaJuegoTablero(562, 315, FILAS_COLS, 10, true);
-        DeustoCrash.tablero = new TableroBichos(FILAS_COLS, v);
+        PlantasVsZombies.tablero = new TableroBichos(FILAS_COLS, v);
         for (int f = 0; f < FILAS_COLS; ++f) {
             for (int c = 0; c < FILAS_COLS; ++c) {
-                if (DeustoCrash.tablero.getObjetoDC(new CoordTablero(f, c)) instanceof Muro) {
-                    ((Muro)DeustoCrash.tablero.getObjetoDC(new CoordTablero(f, c))).setPuntuador(DeustoCrash.miPuntuador);
+                if (PlantasVsZombies.tablero.getObjetoDC(new CoordTablero(f, c)) instanceof Minizombie) {
+                    ((Minizombie)PlantasVsZombies.tablero.getObjetoDC(new CoordTablero(f, c))).setPuntuador(PlantasVsZombies.miPuntuador);
                 }
             }
         }
@@ -181,7 +181,7 @@ public class DeustoCrash
         v.showMessage("Juego en curso");
         boolean finJuego = false;
         int movsSeguidosSinCaramelos = 0;
-        while (!finJuego && !v.isClosed()) {
+        /*while (!finJuego && !v.isClosed()) {
             boolean quitadoAlgo = true;
             while (quitadoAlgo) {
                 quitadoAlgo = buscaYQuitaLineas(DeustoCrash.tablero);
@@ -217,8 +217,8 @@ public class DeustoCrash
                 }
             }
             v.showMessage("Movimientos realizados: " + numMovs);
-        }
-        v.showMessage("Puntuaci\u00f3n final: " + DeustoCrash.miPuntuador.getPuntos() + ". Cerrando en 5 segundos...");
+        }*/
+        v.showMessage("Puntuaci\u00f3n final: " + PlantasVsZombies.miPuntuador.getPuntos() + ". Cerrando en 5 segundos...");
         v.esperaUnRato(5000);
         v.finish();
     }
