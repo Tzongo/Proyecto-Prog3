@@ -1,0 +1,9 @@
+Jerarquia:
+Bicho-->Planta-->Sol
+---------------->Disparador
+------->Zombie-->MiniZombie
+---------------->MegaZombie
+
+Equivalencias:
+Bicho==ObjetoDeustoCrash
+Sol, Disparador, Minizombie, MegaZombie==CarameloUD

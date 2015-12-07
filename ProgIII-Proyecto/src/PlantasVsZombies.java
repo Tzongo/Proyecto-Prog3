@@ -172,13 +172,13 @@ public class PlantasVsZombies
         //final VentanaJuegoTablero v = new VentanaJuegoTablero(562, 315, FILAS_COLS, 10, true);
         PlantasVsZombies.tablero = new TableroBichos(3, 10, 4, 4, v);
         //PlantasVsZombies.tablero = new TableroBichos(FILAS_COLS, v);
-        for (int f = 0; f < FILAS_COLS; ++f) {
+        /*for (int f = 0; f < FILAS_COLS; ++f) {
             for (int c = 0; c < FILAS_COLS; ++c) {
                 if (PlantasVsZombies.tablero.getObjetoDC(new CoordTablero(f, c)) instanceof Minizombie) {
                     ((Minizombie)PlantasVsZombies.tablero.getObjetoDC(new CoordTablero(f, c))).setPuntuador(PlantasVsZombies.miPuntuador);
                 }
             }
-        }
+        }*/
         v.setTiempoPasoAnimacion(200L, 40);
         v.showMessage("Juego en curso");
         boolean finJuego = false;
@@ -221,7 +221,7 @@ public class PlantasVsZombies
             v.showMessage("Movimientos realizados: " + numMovs);
         }*/
         v.showMessage("Puntuaci\u00f3n final: " + PlantasVsZombies.miPuntuador.getPuntos() + ". Cerrando en 5 segundos...");
-        v.esperaUnRato(5000);
+        v.esperaUnRato(5000000);
         v.finish();
     }
 }

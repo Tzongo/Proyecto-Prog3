@@ -11,13 +11,7 @@ public class TableroBichos
     private int anchoBicho;
     private int altoBicho;
     private VentanaJuegoTablero miVentana;
-    private static String[] colores;
-    private static Random r;
-    
-    static {
-        TableroBichos.colores = new String[] { "green", "blue", "red", "magenta", "yellow" };
-        TableroBichos.r = new Random();
-    }
+   
     
     public TableroBichos(final int f, final int c, final int anchoBicho, final int altoBicho, final VentanaJuegoTablero v) {
         this.filas = f;
@@ -74,8 +68,8 @@ public class TableroBichos
                 	System.out.println("distri d");
                 }
                 else {
-                    /*final Sol caram = new Sol(new CoordTablero(f, c), anchoBicho, altoBicho, this);
-                    this.tablero[f + 1][c] = caram;*/
+                    final Minizombie caram = new Minizombie(new CoordTablero(f, c), anchoBicho, altoBicho, this);
+                    this.tablero[f + 1][c] = caram;
                 }
             }
         }
@@ -112,6 +106,9 @@ public class TableroBichos
         if (ct.getFila() < -1 || ct.getColumna() < 0 || ct.getFila() >= this.getFilas() || ct.getColumna() >= this.getColumnas()) {
             return null;
         }
+        else if (tablero[ct.getFila()+1][ct.getColumna()] == null) {
+			return null;
+		}
         return this.tablero[ct.getFila() + 1][ct.getColumna()];
     }
     
