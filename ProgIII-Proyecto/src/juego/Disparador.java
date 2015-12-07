@@ -14,7 +14,7 @@ public class Disparador extends Planta implements Quitable, Puntuable{
 		super(1, recarga, costo);
 		// TODO Auto-generated constructor stub
 	}
-	public Disparador(final CoordTablero ct, final String color, final int ancho, final int alto, final TableroBichos tc) {
+	public Disparador(final CoordTablero ct, final int ancho, final int alto, final TableroBichos tc) {
         super(ct, "Disparador", ancho, alto, tc);
         this.miPuntuador = null;
     }

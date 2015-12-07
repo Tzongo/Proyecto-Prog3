@@ -9,7 +9,7 @@ public class Sol extends Planta implements Quitable, Puntuable{
 	public Sol() {
 		// TODO Auto-generated constructor stub
 	}
-	public Sol(final CoordTablero ct, final String color, final int ancho, final int alto, final TableroBichos tc) {
+	public Sol(final CoordTablero ct, final int ancho, final int alto, final TableroBichos tc) {
         super(ct, "Sol", ancho, alto, tc);
         this.miPuntuador =  null;
     }
