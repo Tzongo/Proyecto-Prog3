@@ -117,10 +117,10 @@ public class TableroBichos
     }
     
     public void mueveZombie(final CoordTablero origen, final CoordTablero destino) {
-        this.tablero[destino.getFila()][destino.getColumna() + 1] = this.tablero[origen.getFila()][origen.getColumna() + 1];
-        this.tablero[origen.getFila()][origen.getColumna() + 1] = null;
-        if (this.tablero[destino.getFila()][destino.getColumna() + 1] != null) {
-            this.tablero[destino.getFila()][destino.getColumna() + 1].setPosicionTablero(destino);
+        this.tablero[destino.getFila()][destino.getColumna()-1] = this.tablero[origen.getFila()][origen.getColumna() -1];
+        this.tablero[origen.getFila()][origen.getColumna() - 1] = null;
+        if (this.tablero[destino.getFila()][destino.getColumna() - 1] != null) {
+            this.tablero[destino.getFila()][destino.getColumna() - 1].setPosicionTablero(destino);
         }
     }
     

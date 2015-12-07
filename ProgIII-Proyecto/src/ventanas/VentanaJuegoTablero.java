@@ -8,6 +8,7 @@ import juego.*;
 import utilidades.Img;
 import utilidades.JFrameIMG;
 import utilidades.JPanelIMG;
+import utilidades.JPanelRelleno;
 
 public class VentanaJuegoTablero extends JFrame
 {
@@ -17,7 +18,7 @@ public class VentanaJuegoTablero extends JFrame
 	private static final long serialVersionUID = 1L;
 	private JLabel lMensaje;
     private JPanelIMG pAreaJuego;
-    private JPanelIMG fondo;
+    private JPanelIMG pFondo;
     private int anchVentana;
     private int altVentana;
     private int filasTablero;
@@ -35,11 +36,12 @@ public class VentanaJuegoTablero extends JFrame
     private long tiempoFrameAnimMsg;
     private HiloAnimacion hilo;
     private ArrayList<Animacion> animacionesPendientes;
+    private JPanelRelleno pRelleno1;
     
     public VentanaJuegoTablero(final int anchuraVent, final int alturaVent, final int filas, final int columnas, final boolean casCuadradas) {
         this.lMensaje = new JLabel(" ");
         this.pAreaJuego = new JPanelIMG();
-        this.fondo = new JPanelIMG();
+        this.pFondo = new JPanelIMG();
         this.pulsacionRaton = null;
         this.tiempoAnimMsg = 1000L;
         this.tiempoFrameAnimMsg = this.tiempoAnimMsg / 40L;
@@ -50,6 +52,7 @@ public class VentanaJuegoTablero extends JFrame
         this.filasTablero =filas;//3
         this.colsTablero =columnas;//10
         this.casillasCuadradas = casCuadradas;
+        this.pRelleno1 = new JPanelRelleno();
        
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
@@ -61,8 +64,11 @@ public class VentanaJuegoTablero extends JFrame
                     VentanaJuegoTablero.this.setResizable(false);
                     VentanaJuegoTablero.this.setTitle("Ventana de juego de tablero");
 
-                    VentanaJuegoTablero.this.pAreaJuego.setBackground("img/tablero-american-suburbs.png");
                     VentanaJuegoTablero.this.getContentPane().add(VentanaJuegoTablero.this.pAreaJuego, "Center");
+                    VentanaJuegoTablero.this.pAreaJuego.setBackground("img/tablero-american-suburbs.png");
+                    //VentanaJuegoTablero.this.pAreaJuego.setBackground("img/tablero-american-suburbs.png");
+                    //VentanaJuegoTablero.this.pFondo.add(VentanaJuegoTablero.this.pRelleno1, "North");
+                    //VentanaJuegoTablero.this.getContentPane().add(VentanaJuegoTablero.this.pFondo, "Center");
                     VentanaJuegoTablero.this.getContentPane().add(VentanaJuegoTablero.this.lMensaje, "South");
                     VentanaJuegoTablero.this.pAreaJuego.setLayout(null);
                     VentanaJuegoTablero.this.lMensaje.setHorizontalAlignment(0);
@@ -94,6 +100,7 @@ public class VentanaJuegoTablero extends JFrame
                         public void mouseClicked(final MouseEvent arg0) {
                         }
                     });
+
                 }
             });
         }
@@ -127,16 +134,20 @@ public class VentanaJuegoTablero extends JFrame
                 this.pRelleno2.setBounds(this.finY, 0, this.pAreaJuego.getHeight(), this.origenY);
                 this.pAreaJuego.add(this.pRelleno1);
                 this.pAreaJuego.add(this.pRelleno2);*/
+                //this.pRelleno1.setBounds(0, 0, this.pAreaJuego.getWidth(), 10);
+                //this.pRelleno2.setBounds(this.finX, 0, this.origenX, this.pAreaJuego.getHeight());
+                //this.pAreaJuego.add(this.pRelleno1);
+                //this.pAreaJuego.add(this.pRelleno2);
            }
             else {
         	 final int pixelsSobran = this.pAreaJuego.getWidth() - this.pAreaJuego.getHeight();
                 this.origenX = pixelsSobran / 2;
                 this.pixelsPorColumna = this.pixelsPorFila;
                 this.finX = Math.round(this.origenX + this.pixelsPorColumna * this.colsTablero + 0.5f);
-                /*this.pRelleno1.setBounds(0, 0, this.origenX, this.pAreaJuego.getHeight());
-                this.pRelleno2.setBounds(this.finX, 0, this.origenX, this.pAreaJuego.getHeight());
-                this.pAreaJuego.add(this.pRelleno1);
-                this.pAreaJuego.add(this.pRelleno2);*/
+                //this.pRelleno1.setBounds(0, 0,this.pAreaJuego.getWidth(), 10 );
+                //this.pRelleno2.setBounds(this.finX, 0, this.origenX, this.pAreaJuego.getHeight());
+                //this.pAreaJuego.add(this.pRelleno1);
+                //this.pAreaJuego.add(this.pRelleno2);
             }
         }
     }
@@ -238,6 +249,24 @@ public class VentanaJuegoTablero extends JFrame
             }
         }
     }
+    public void movePosTablero2(final ObjetoDeJuego oj/*, final CoordTablero ct*/) {
+        if (oj != null) {
+            if (this.hilo == null) {
+                (this.hilo = new HiloAnimacion()).start();
+            }
+            //final Point pHasta = this.coordToPixs(ct);
+            final Animacion a = new Animacion(oj.getX(), oj.getX()-1, oj.getY(), oj.getY(), this.tiempoAnimMsg, oj);
+            if (this.animacionesPendientes.indexOf(a) == -1) {
+                this.animacionesPendientes.add(a);
+            }
+            else {
+                final int pos = this.animacionesPendientes.indexOf(a);
+               /* this.animacionesPendientes.get(pos).xHasta = pHasta.getX();
+                this.animacionesPendientes.get(pos).yHasta = pHasta.getY();*/
+                this.animacionesPendientes.get(pos).msFaltan = this.tiempoAnimMsg;
+            }
+        }
+    }
     
     public void setTiempoPasoAnimacion(final long tiempoAnimMsg, final int numMovtos) {
         if (tiempoAnimMsg < 100L || numMovtos < 2 || numMovtos > tiempoAnimMsg) {
@@ -272,7 +301,7 @@ public class VentanaJuegoTablero extends JFrame
         final int FILAS = 3;
         final int COLS = 10;
         final ObjetoDeJuego[][] tablero = new ObjetoDeJuego[FILAS][COLS];
-        final VentanaJuegoTablero v = new VentanaJuegoTablero(562, 317, FILAS, COLS, true);
+        final VentanaJuegoTablero v = new VentanaJuegoTablero(562, 317, FILAS, COLS, false);
         v.showMessage("Juego en curso");
         final ObjetoDeJuego o1 = new ObjetoDeJuego("MiniZombie.png", true, v.getAnchoCasilla(), v.getAltoCasilla());
         final ObjetoDeJuego o2 = new ObjetoDeJuego("MiniZombie.png", true, v.getAnchoCasilla(), v.getAltoCasilla());
@@ -338,4 +367,5 @@ public class VentanaJuegoTablero extends JFrame
             }
         }
     }
+   
 }

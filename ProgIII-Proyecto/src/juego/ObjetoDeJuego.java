@@ -51,6 +51,8 @@ public class ObjetoDeJuego extends JLabel
                 }
             }
         }
+        this.setBorder(BorderFactory.createLineBorder(Color.blue));
+        //this.setBorder(BorderFactory.createEmptyBorder(10, 10,10, 10));
         this.setSize(anchura, altura);
         this.setVisible(this.esVisible = visible);
     }
