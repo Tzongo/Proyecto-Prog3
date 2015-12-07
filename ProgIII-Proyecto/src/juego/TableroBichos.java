@@ -55,20 +55,20 @@ public class TableroBichos
 
                 	System.out.println("distri z");
                 }
-                else if (f == 0 && (c == 0 || c == 1 ||c == 2 /*||c == this.getColumnas() - 2)*/)) {
+                else if (c == 0 && (f == 0 || f == 1 ||f == 2 /*||c == this.getColumnas() - 2)*/)) {
                     final Sol sol = new Sol(new CoordTablero(f, c), anchoBicho, altoBicho, this);
                     this.tablero[f + 1][c] = sol;
 
                 	System.out.println("distri s");
                 }
-                else if (f == 1 && (c == 0 || c == 1 ||c == 2 /*||c == this.getColumnas() - 2)*/)) {
+                else if (c == 1 && (f == 0 || f == 1 ||f == 2 /*||c == this.getColumnas() - 2)*/)) {
                     final Disparador disp = new Disparador(new CoordTablero(f, c), anchoBicho, altoBicho, this);
                     this.tablero[f + 1][c] = disp;
 
                 	System.out.println("distri d");
                 }
                 else {
-                    final Minizombie caram = new Minizombie(new CoordTablero(f, c), anchoBicho, altoBicho, this);
+                    final Transparencia caram = new Transparencia(new CoordTablero(f, c),"Transparencia", anchoBicho, altoBicho, this);
                     this.tablero[f + 1][c] = caram;
                 }
             }

@@ -35,8 +35,6 @@ public class VentanaJuegoTablero extends JFrame
     private long tiempoFrameAnimMsg;
     private HiloAnimacion hilo;
     private ArrayList<Animacion> animacionesPendientes;
-    private JPanel pRelleno1;
-    private JPanel pRelleno2;
     
     public VentanaJuegoTablero(final int anchuraVent, final int alturaVent, final int filas, final int columnas, final boolean casCuadradas) {
         this.lMensaje = new JLabel(" ");
@@ -47,8 +45,6 @@ public class VentanaJuegoTablero extends JFrame
         this.tiempoFrameAnimMsg = this.tiempoAnimMsg / 40L;
         this.hilo = null;
         this.animacionesPendientes = new ArrayList<Animacion>();
-        this.pRelleno1 = new JPanel();
-        this.pRelleno2 = new JPanel();
         this.anchVentana = anchuraVent;//562
         this.altVentana = alturaVent;//317
         this.filasTablero =filas;//3
@@ -131,9 +127,9 @@ public class VentanaJuegoTablero extends JFrame
                 this.pRelleno2.setBounds(this.finY, 0, this.pAreaJuego.getHeight(), this.origenY);
                 this.pAreaJuego.add(this.pRelleno1);
                 this.pAreaJuego.add(this.pRelleno2);*/
-            }
+           }
             else {
-                final int pixelsSobran = this.pAreaJuego.getWidth() - this.pAreaJuego.getHeight();
+        	 final int pixelsSobran = this.pAreaJuego.getWidth() - this.pAreaJuego.getHeight();
                 this.origenX = pixelsSobran / 2;
                 this.pixelsPorColumna = this.pixelsPorFila;
                 this.finX = Math.round(this.origenX + this.pixelsPorColumna * this.colsTablero + 0.5f);

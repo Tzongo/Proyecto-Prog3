@@ -50,6 +50,7 @@ public class MenuInicial extends JFrame {
 		JButtonTransparente buttonTransparente = new JButtonTransparente();
 		buttonTransparente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		contentPane.setLayout(new BorderLayout(0, 0));

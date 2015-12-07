@@ -170,8 +170,7 @@ public class PlantasVsZombies
         int numMovs = 0;
         final VentanaJuegoTablero v = new VentanaJuegoTablero(562, 315, 3, 10, true);
         //final VentanaJuegoTablero v = new VentanaJuegoTablero(562, 315, FILAS_COLS, 10, true);
-        PlantasVsZombies.tablero = new TableroBichos(3, 10, 4, 4, v);
-        //PlantasVsZombies.tablero = new TableroBichos(FILAS_COLS, v);
+        PlantasVsZombies.tablero = new TableroBichos(3, 10, 100, 100,v);
         /*for (int f = 0; f < FILAS_COLS; ++f) {
             for (int c = 0; c < FILAS_COLS; ++c) {
                 if (PlantasVsZombies.tablero.getObjetoDC(new CoordTablero(f, c)) instanceof Minizombie) {
