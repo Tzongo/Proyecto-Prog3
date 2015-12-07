@@ -61,7 +61,7 @@ public class Minizombie extends Zombie implements Quitable, Movible{
         if (this.tablero.getObjetoDC(caida) != null) {
             return false;
         }
-        this.tablero.mueveCaramelo(this.posicion, caida);
+        this.tablero.mueveZombie(this.posicion, caida);
         if (this.tablero.getVentana() != null) {
             this.tablero.getVentana().movePosTablero(this.getObjeto(), caida);
         }

@@ -63,7 +63,7 @@ public class Megazombie extends Zombie implements Quitable, Puntuable, Movible{
         if (this.tablero.getObjetoDC(caida) != null) {
             return false;
         }
-        this.tablero.mueveCaramelo(this.posicion, caida);
+        this.tablero.mueveZombie(this.posicion, caida);
         if (this.tablero.getVentana() != null) {
             this.tablero.getVentana().movePosTablero(this.getObjeto(), caida);
         }

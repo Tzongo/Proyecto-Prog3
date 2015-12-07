@@ -88,11 +88,11 @@ public class TableroBichos
         }
     }
     
-    public void setCaramelo(final Planta c, final CoordTablero ct) {
+    public void setBicho(final Planta c, final CoordTablero ct) {
         this.tablero[ct.getFila() + 1][ct.getColumna()] = c;
     }
     
-    public Planta getCaramelo(final CoordTablero ct) {
+    public Planta getBicho(final CoordTablero ct) {
     	final Bicho odc = this.tablero[ct.getFila() + 1][ct.getColumna()];
         if (odc instanceof Planta) {
             return (Planta)odc;
@@ -111,11 +111,11 @@ public class TableroBichos
         this.tablero[ct.getFila() + 1][ct.getColumna()] = null;
     }
     
-    public void mueveCaramelo(final CoordTablero origen, final CoordTablero destino) {
-        this.tablero[destino.getFila() + 1][destino.getColumna()] = this.tablero[origen.getFila() + 1][origen.getColumna()];
-        this.tablero[origen.getFila() + 1][origen.getColumna()] = null;
-        if (this.tablero[destino.getFila() + 1][destino.getColumna()] != null) {
-            this.tablero[destino.getFila() + 1][destino.getColumna()].setPosicionTablero(destino);
+    public void mueveZombie(final CoordTablero origen, final CoordTablero destino) {
+        this.tablero[destino.getFila()][destino.getColumna() + 1] = this.tablero[origen.getFila()][origen.getColumna() + 1];
+        this.tablero[origen.getFila()][origen.getColumna() + 1] = null;
+        if (this.tablero[destino.getFila()][destino.getColumna() + 1] != null) {
+            this.tablero[destino.getFila()][destino.getColumna() + 1].setPosicionTablero(destino);
         }
     }
     
@@ -169,7 +169,7 @@ public class TableroBichos
         System.out.println("Quita el caramelo de (0,0):");
         tc.quitaObjetoDC(new CoordTablero(0, 0));
         System.out.println("Mueve un caramelo de (0,1) a (0,2):");
-        tc.mueveCaramelo(new CoordTablero(0, 1), new CoordTablero(0, 2));
+        tc.mueveZombie(new CoordTablero(0, 1), new CoordTablero(0, 2));
         System.out.println("Intercambia los caramelos de (1,0) y (2,0)");
         tc.intercambiaCaramelos(new CoordTablero(1, 0), new CoordTablero(2, 0));
         System.out.println("Tablero resultado:");
