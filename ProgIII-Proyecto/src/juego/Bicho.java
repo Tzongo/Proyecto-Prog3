@@ -32,6 +32,7 @@ public abstract class Bicho implements Quitable, Puntuable, Movible{
 		this.objeto = new ObjetoDeJuego(String.valueOf(nomFicGrafico) + ".png", true, ancho, alto);
 	}
 
+
 	public ObjetoDeJuego getObjeto() {
 		return this.objeto;
 	}

@@ -5,8 +5,6 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
 import juego.*;
-import utilidades.Img;
-import utilidades.JFrameIMG;
 import utilidades.JPanelIMG;
 import utilidades.JPanelRelleno;
 
@@ -116,6 +114,7 @@ public class VentanaJuegoTablero extends JFrame
     private Point coordToPixs(final CoordTablero ct) {
         return new Point(Math.round(this.origenX + ct.getColumna() * this.pixelsPorColumna), Math.round(this.origenY + ct.getFila() * this.pixelsPorFila));
     }
+    
     
     private void calcTamanyo() {
         this.pixelsPorFila = this.pAreaJuego.getHeight() * 1.0f / this.filasTablero;
@@ -255,7 +254,7 @@ public class VentanaJuegoTablero extends JFrame
                 (this.hilo = new HiloAnimacion()).start();
             }
             //final Point pHasta = this.coordToPixs(ct);
-            final Animacion a = new Animacion(oj.getX(), oj.getX()-1, oj.getY(), oj.getY(), this.tiempoAnimMsg, oj);
+            final Animacion a = new Animacion(oj.getX(), oj.getX(), oj.getY(), oj.getY(), this.tiempoAnimMsg, oj);
             if (this.animacionesPendientes.indexOf(a) == -1) {
                 this.animacionesPendientes.add(a);
             }

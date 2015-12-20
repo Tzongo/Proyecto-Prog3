@@ -12,6 +12,9 @@ public class TableroBichos
     private int altoBicho;
     private VentanaJuegoTablero miVentana;
    
+    public int length() {
+		return tablero.length;
+	}
     
     public TableroBichos(final int f, final int c, final int anchoBicho, final int altoBicho, final VentanaJuegoTablero v) {
         this.filas = f;
@@ -47,10 +50,14 @@ public class TableroBichos
     
     private void distribuyeBichosAlAzar(final int anchoBicho, final int altoBicho) {
     	System.out.println("distri");
+    	
         for (int f = -1; f < this.filas; ++f) {
             for (int c = 0; c < this.columnas; ++c) {
                 if ((f == 0 || f==1 || f == this.getFilas() - 1) && (c == 9)) {
+                	//Thread hilo=null;
                     final Minizombie zombie = new Minizombie(new CoordTablero(f, c), anchoBicho , altoBicho , this);
+                    //System.out.println(zombie.getThread());
+                    //zombie.startThread();
                     this.tablero[f + 1][c] = zombie;
 
                 	System.out.println("distri z");
@@ -101,6 +108,7 @@ public class TableroBichos
         }
         return null;
     }
+    
     
     public Bicho getObjetoDC(final CoordTablero ct) {
         if (ct.getFila() < -1 || ct.getColumna() < 0 || ct.getFila() >= this.getFilas() || ct.getColumna() >= this.getColumnas()) {

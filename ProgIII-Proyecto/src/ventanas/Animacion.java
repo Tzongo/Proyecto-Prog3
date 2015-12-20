@@ -3,14 +3,14 @@ package ventanas;
 import juego.*;
 import java.awt.*;
 
-class Animacion
+public class Animacion
 {
     double xDesde;
     double xHasta;
     double yDesde;
     double yHasta;
     long msFaltan;
-    ObjetoDeJuego oj;
+    public ObjetoDeJuego oj;
     
     public Animacion(final double xDesde, final double xHasta, final double yDesde, final double yHasta, final long msFaltan, final ObjetoDeJuego oj) {
         this.xDesde = xDesde;
@@ -21,7 +21,7 @@ class Animacion
         this.oj = oj;
     }
     
-    Point calcNextFrame(final long msPasados) {
+    public Point calcNextFrame(final long msPasados) {
         if (this.msFaltan <= msPasados) {
             this.msFaltan = 0L;
             return new Point((int)Math.round(this.xHasta), (int)Math.round(this.yHasta));
@@ -35,7 +35,7 @@ class Animacion
         return new Point((int)Math.round(this.xDesde), (int)Math.round(this.yDesde));
     }
     
-    boolean finAnimacion() {
+    public boolean finAnimacion() {
         return this.msFaltan <= 0L;
     }
     

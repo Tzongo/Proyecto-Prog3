@@ -1,18 +1,27 @@
 
-import ventanas.*;
-import juego.*;
-
-import java.awt.Point;
+import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
 
-import accion.*;
+import juego.Bicho;
+import juego.CoordTablero;
+import juego.ObjetoDeJuego;
+import juego.Puntuador;
+import juego.TableroBichos;
+import juego.Zombie;
+import ventanas.Animacion;
+import ventanas.VentanaJuegoTablero;
 
 public class PlantasVsZombies {
 	private static TableroBichos tablero;
 	private static int PAUSA_MOVIMIENTO_MS;
 	private static Puntuador miPuntuador;
-
+	public static ArrayList<Animacion> animacionesPendientes;
+	private static HiloAnimacion hilo;
+    private static long tiempoAnimMsg=1000L;
+    private static long tiempoFrameAnimMsg=tiempoAnimMsg / 40L;
+    
+    
 	static {
 		PlantasVsZombies.PAUSA_MOVIMIENTO_MS = 500;
 		PlantasVsZombies.miPuntuador = new Puntuador();
@@ -133,20 +142,47 @@ public class PlantasVsZombies {
 		}
 		return false;
 	}
-	public static void movimientos(VentanaJuegoTablero v){
+
+	public static void movimientos(VentanaJuegoTablero v) {
 		for (int f = tablero.getFilas() - 1; f >= 0; --f) {
 			for (int c = 0; c < tablero.getColumnas(); ++c) {
 				final CoordTablero ct = new CoordTablero(f, c);
 				final Bicho cm = tablero.getObjetoDC(ct);
 				if (cm instanceof Zombie) {
 					if (cm.mover()) {
-					v.movePosTablero2(cm.getObjeto());
+						v.movePosTablero2(cm.getObjeto());
 					}
-					
+
 				}
 			}
 		}
 	}
+	 
+
+	public static void startAnimaciones() {
+		if (tablero.getBicho(new CoordTablero(tablero.getFilas(), tablero.getColumnas())) instanceof Zombie) {
+			Bicho zombie = tablero.getBicho(new CoordTablero(tablero.getFilas(), tablero.getColumnas()));
+			ObjetoDeJuego z = zombie.getObjeto();
+			
+			if (z != null) {
+				if (PlantasVsZombies.hilo == null) {
+					(PlantasVsZombies.hilo = new HiloAnimacion()).start();
+				}
+	            //final Point pHasta = VentanaJuegoTablero.coordToPixs(new CoordTablero(z.getX(), z.getY()+1));
+	            Animacion a = new Animacion(z.getX(), z.getX(), z.getY(), z.getY()+1, 1000L, z);
+				/*if (this.animacionesPendientes.indexOf(a) == -1) {
+	                this.animacionesPendientes.add(a);
+	            }
+	            else {
+	                final int pos = this.animacionesPendientes.indexOf(a);
+	                this.animacionesPendientes.get(pos).xHasta = pHasta.getX();
+	                this.animacionesPendientes.get(pos).yHasta = pHasta.getY();
+	                this.animacionesPendientes.get(pos).msFaltan = this.tiempoAnimMsg;
+	            }*/
+			}
+		}
+	}
+
 	public static void main(final String[] args) {
 		final int FILAS_COLS = 3;
 		int numMovs = 0;
@@ -165,8 +201,9 @@ public class PlantasVsZombies {
 		boolean finJuego = false;
 		int movsSeguidosSinCaramelos = 0;
 		while (!finJuego && !v.isClosed()) {
-			//caenLasPiezas(PlantasVsZombies.tablero);
+			// caenLasPiezas(PlantasVsZombies.tablero);
 			movimientos(v);
+			PlantasVsZombies.startAnimaciones();
 			/*
 			 * boolean quitadoAlgo = true; while (quitadoAlgo) { quitadoAlgo =
 			 * buscaYQuitaLineas(PlantasVsZombies.tablero); if (quitadoAlgo) {
@@ -178,6 +215,7 @@ public class PlantasVsZombies {
 			 * (!hayMovimientosPosibles(PlantasVsZombies.tablero)) { finJuego =
 			 * true; } else {
 			 */
+
 			final CoordTablero c2 = v.readInicioDrag();
 			if (c2 != null) {
 				final CoordTablero c3 = v.getFinalDrag();
@@ -196,7 +234,7 @@ public class PlantasVsZombies {
 					}
 				}
 			}
-			
+
 			// }
 			v.showMessage("Movimientos realizados: " + numMovs);
 		}
@@ -205,6 +243,39 @@ public class PlantasVsZombies {
 		v.esperaUnRato(50000);
 		v.finish();
 	}
-	
-	
-}
+
+	static class HiloAnimacion extends Thread {
+			@Override
+	        public void run() {
+	            while (!Thread.interrupted()) {
+	                try {
+	                    Thread.sleep(1000L);
+	                }
+	                catch (InterruptedException e) {
+	                    break;
+	                }
+	                for (int i = PlantasVsZombies.animacionesPendientes.size() - 1; i >= 0; --i) {
+	                    final Animacion a = animacionesPendientes.get(i);
+	                    if (a.oj != null) {
+	                        a.oj.setLocation(a.calcNextFrame(PlantasVsZombies.tiempoFrameAnimMsg));
+	                    }
+	                    if (a.finAnimacion()) {
+	                    	PlantasVsZombies.animacionesPendientes.remove(i);
+	                    }
+	                }
+	            }
+	        }
+
+			/*
+			 * for (int i =
+			 * VentanaJuegoTablero.this.animacionesPendientes.size() - 1; i >=
+			 * 0; --i) { final Animacion a =
+			 * VentanaJuegoTablero.this.animacionesPendientes.get(i); if (a.oj
+			 * != null) {
+			 * a.oj.setLocation(a.calcNextFrame(VentanaJuegoTablero.this.
+			 * tiempoFrameAnimMsg)); } if (a.finAnimacion()) {
+			 * VentanaJuegoTablero.this.animacionesPendientes.remove(i); } }
+			 */
+		}
+	}
+
