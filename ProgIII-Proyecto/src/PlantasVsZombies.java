@@ -9,19 +9,13 @@ import juego.ObjetoDeJuego;
 import juego.Puntuador;
 import juego.TableroBichos;
 import juego.Zombie;
-import ventanas.Animacion;
 import ventanas.VentanaJuegoTablero;
 
 public class PlantasVsZombies {
 	private static TableroBichos tablero;
 	private static int PAUSA_MOVIMIENTO_MS;
 	private static Puntuador miPuntuador;
-	public static ArrayList<Animacion> animacionesPendientes;
-	private static HiloAnimacion hilo;
-    private static long tiempoAnimMsg=1000L;
-    private static long tiempoFrameAnimMsg=tiempoAnimMsg / 40L;
-    
-    
+
 	static {
 		PlantasVsZombies.PAUSA_MOVIMIENTO_MS = 500;
 		PlantasVsZombies.miPuntuador = new Puntuador();
@@ -157,30 +151,19 @@ public class PlantasVsZombies {
 			}
 		}
 	}
-	 
-
-	public static void startAnimaciones() {
-		if (tablero.getBicho(new CoordTablero(tablero.getFilas(), tablero.getColumnas())) instanceof Zombie) {
-			Bicho zombie = tablero.getBicho(new CoordTablero(tablero.getFilas(), tablero.getColumnas()));
-			ObjetoDeJuego z = zombie.getObjeto();
-			
-			if (z != null) {
-				if (PlantasVsZombies.hilo == null) {
-					(PlantasVsZombies.hilo = new HiloAnimacion()).start();
+	public static void movimientos2(VentanaJuegoTablero v) {
+		ArrayList<Bicho> zList=new ArrayList<>();
+		for (int f = tablero.getFilas() - 1; f >= 0; --f) {
+			for (int c = 0; c < tablero.getColumnas(); ++c) {
+				final CoordTablero ct = new CoordTablero(f, c);
+				final Bicho cm = tablero.getObjetoDC(ct);
+				
+				if (cm instanceof Zombie) {
+					zList.add(cm);
 				}
-	            //final Point pHasta = VentanaJuegoTablero.coordToPixs(new CoordTablero(z.getX(), z.getY()+1));
-	            Animacion a = new Animacion(z.getX(), z.getX(), z.getY(), z.getY()+1, 1000L, z);
-				/*if (this.animacionesPendientes.indexOf(a) == -1) {
-	                this.animacionesPendientes.add(a);
-	            }
-	            else {
-	                final int pos = this.animacionesPendientes.indexOf(a);
-	                this.animacionesPendientes.get(pos).xHasta = pHasta.getX();
-	                this.animacionesPendientes.get(pos).yHasta = pHasta.getY();
-	                this.animacionesPendientes.get(pos).msFaltan = this.tiempoAnimMsg;
-	            }*/
 			}
 		}
+		v.animaciones(tablero, zList);
 	}
 
 	public static void main(final String[] args) {
@@ -203,7 +186,17 @@ public class PlantasVsZombies {
 		while (!finJuego && !v.isClosed()) {
 			// caenLasPiezas(PlantasVsZombies.tablero);
 			movimientos(v);
-			PlantasVsZombies.startAnimaciones();
+			movimientos2(v);
+			/*for (int i = 0; i < tablero.getFilas(); i++) {
+				for (int j = 0; j < tablero.getColumnas(); j++) {
+					if (tablero.getBicho(new CoordTablero(i, j)) instanceof Zombie) {
+						Bicho zombie = tablero.getBicho(new CoordTablero(i,j));
+						ObjetoDeJuego z = zombie.getObjeto();
+						v.animaciones(tablero, z);
+					}
+				}
+			}*/
+
 			/*
 			 * boolean quitadoAlgo = true; while (quitadoAlgo) { quitadoAlgo =
 			 * buscaYQuitaLineas(PlantasVsZombies.tablero); if (quitadoAlgo) {
@@ -231,6 +224,7 @@ public class PlantasVsZombies {
 						++movsSeguidosSinCaramelos;
 						++numMovs;
 						v.esperaAFinAnimaciones();
+						v.esperaAFinAnimaciones2();
 					}
 				}
 			}
@@ -243,39 +237,4 @@ public class PlantasVsZombies {
 		v.esperaUnRato(50000);
 		v.finish();
 	}
-
-	static class HiloAnimacion extends Thread {
-			@Override
-	        public void run() {
-	            while (!Thread.interrupted()) {
-	                try {
-	                    Thread.sleep(1000L);
-	                }
-	                catch (InterruptedException e) {
-	                    break;
-	                }
-	                for (int i = PlantasVsZombies.animacionesPendientes.size() - 1; i >= 0; --i) {
-	                    final Animacion a = animacionesPendientes.get(i);
-	                    if (a.oj != null) {
-	                        a.oj.setLocation(a.calcNextFrame(PlantasVsZombies.tiempoFrameAnimMsg));
-	                    }
-	                    if (a.finAnimacion()) {
-	                    	PlantasVsZombies.animacionesPendientes.remove(i);
-	                    }
-	                }
-	            }
-	        }
-
-			/*
-			 * for (int i =
-			 * VentanaJuegoTablero.this.animacionesPendientes.size() - 1; i >=
-			 * 0; --i) { final Animacion a =
-			 * VentanaJuegoTablero.this.animacionesPendientes.get(i); if (a.oj
-			 * != null) {
-			 * a.oj.setLocation(a.calcNextFrame(VentanaJuegoTablero.this.
-			 * tiempoFrameAnimMsg)); } if (a.finAnimacion()) {
-			 * VentanaJuegoTablero.this.animacionesPendientes.remove(i); } }
-			 */
-		}
-	}
-
+}

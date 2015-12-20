@@ -65,12 +65,7 @@ public class Megazombie extends Zombie implements Quitable, Puntuable, Movible{
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 
 
 }

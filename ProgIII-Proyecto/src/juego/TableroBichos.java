@@ -54,10 +54,7 @@ public class TableroBichos
         for (int f = -1; f < this.filas; ++f) {
             for (int c = 0; c < this.columnas; ++c) {
                 if ((f == 0 || f==1 || f == this.getFilas() - 1) && (c == 9)) {
-                	//Thread hilo=null;
                     final Minizombie zombie = new Minizombie(new CoordTablero(f, c), anchoBicho , altoBicho , this);
-                    //System.out.println(zombie.getThread());
-                    //zombie.startThread();
                     this.tablero[f + 1][c] = zombie;
 
                 	System.out.println("distri z");

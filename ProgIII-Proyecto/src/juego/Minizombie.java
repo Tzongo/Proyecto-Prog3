@@ -15,9 +15,7 @@ public class Minizombie extends Zombie implements Quitable, Movible{
 	public Minizombie(final CoordTablero ct, final int ancho, final int alto, final TableroBichos tc) {
         super(ct, "MiniZombie", ancho, alto, tc);
     }
-	public Minizombie(final CoordTablero ct, final int ancho, final int alto, final TableroBichos tc,Thread hilo) {
-        super(ct, "MiniZombie", ancho, alto, tc,hilo);
-    }
+	
 	
 	@Override
 	public int getVida() {
@@ -70,10 +68,19 @@ public class Minizombie extends Zombie implements Quitable, Movible{
 	}
 
 	/*@Override
-	public void run() {
+	public boolean mover() {
 		// TODO Auto-generated method stub
-		
+		final int fila = this.posicion.getFila();
+        final int col = this.posicion.getColumna();
+        final CoordTablero caida = new CoordTablero(fila , col-2);
+        if (this.tablero.getObjetoDC(caida) != null && this.tablero.getObjetoDC(caida) instanceof Transparencia) {
+            return false;
+        }
+        this.tablero.mueveZombie(this.posicion, caida);
+        if (this.tablero.getVentana() != null) {
+            this.tablero.getVentana().movePosTablero(this.getObjeto(), caida);
+        }
+        return true;
 	}*/
-	
 
 }
