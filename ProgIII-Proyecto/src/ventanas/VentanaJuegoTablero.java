@@ -121,7 +121,7 @@ public class VentanaJuegoTablero extends JFrame {
 						public void mouseClicked(final MouseEvent arg0) {
 						}
 					});
-					mipelota.LimitesXY(getWidth(), getHeight());
+					/*mipelota.LimitesXY(getWidth(), getHeight());
 			        //para la animación
 			        timer = new Timer(16, new ActionListener (){
 			            public void actionPerformed(ActionEvent e) {
@@ -129,7 +129,7 @@ public class VentanaJuegoTablero extends JFrame {
 			                repaint();
 			            }
 			        });
-
+*/
 				}
 			});
 		} catch (Exception ex) {
@@ -249,7 +249,7 @@ public class VentanaJuegoTablero extends JFrame {
 		} catch (Exception ex) {
 		}
 	}
-
+	
 	public void removeObjeto(final ObjetoDeJuego oj) {
 		try {
 			SwingUtilities.invokeAndWait(new Runnable() {
@@ -267,6 +267,7 @@ public class VentanaJuegoTablero extends JFrame {
 	}
 
 	public void movePosTablero(final ObjetoDeJuego oj, final CoordTablero ct) {
+		
 		if (oj != null) {
 			if (this.hilo == null) {
 				(this.hilo = new HiloAnimacion()).start();
@@ -314,34 +315,6 @@ public class VentanaJuegoTablero extends JFrame {
 		} while (!this.animacionesPendientes.isEmpty());
 	}
 
-	
-
-	/*public void animaciones(TableroBichos tablero, ArrayList<Bicho> zList) {
-		this.zList=zList;
-		this.tablero=tablero;
-		if (zList != null && zList.size() > 0) {
-			if (hilo == null) {
-				(hilo = new HiloAnimacion()).start();
-			}
-			for (Bicho z : zList) {
-				if ( z.mover()) {
-					ObjetoDeJuego z2= z.getObjeto();
-					final Point pHasta = coordToPixs(new CoordTablero(z2.getX(), z2.getY()));
-					Animacion a = new Animacion(z2.getX(), z2.getX(), z2.getY(), z2.getY(), this.tiempoAnimMsg/100, z2);
-					if (this.animacionesPendientes2.indexOf(a) == -1) {
-						this.animacionesPendientes2.add(a);
-					} else {
-						final int pos = this.animacionesPendientes2.indexOf(a);
-						this.animacionesPendientes2.get(pos).xHasta = pHasta.getX();
-						this.animacionesPendientes2.get(pos).yHasta = pHasta.getY();
-						this.animacionesPendientes2.get(pos).msFaltan = this.tiempoAnimMsg;
-					}
-				}
-			}
-		}
-
-	}*/
-	
 	public void animaciones3(final ObjetoDeJuego oj, final CoordTablero ct) {
 		if (oj != null) {
 			if (this.hilo3 == null) {

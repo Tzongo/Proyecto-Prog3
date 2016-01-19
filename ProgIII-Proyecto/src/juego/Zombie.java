@@ -1,6 +1,7 @@
 package juego;
 
 import accion.Movible;
+import ventanas.VentanaJuegoTablero;
 
 public abstract class Zombie extends Bicho implements Movible{
 	private int ataque;//ataque
@@ -53,14 +54,45 @@ public abstract class Zombie extends Bicho implements Movible{
         final int col = this.posicion.getColumna();
         final CoordTablero caida = new CoordTablero(fila , col-1);
         System.out.println(this.tablero.getObjetoDC(caida));
-        if (this.tablero.getObjetoDC(caida) != null && !(this.tablero.getObjetoDC(caida) instanceof Transparencia)) {
+        
+        if (this.tablero.getObjetoDC(caida) != null ) {
+        	if (this.tablero.getObjetoDC(caida) instanceof Planta) {
+            	this.tablero.getObjetoDC(caida).setVida(this.tablero.getObjetoDC(caida).getVida()-25);
+            	if (this.tablero.getObjetoDC(caida).getVida()==0) {
+            		this.tablero.quitaObjetoDC(caida);
+            		this.tablero.setBicho(new Transparencia(caida,"Transparencia", 60, 60, null), caida);
+            		this.tablero.mueveZombie(this.posicion, caida);
+    			}
+            	else {
+    				return false;
+    			}
+    		}
+        	else if ((this.tablero.getObjetoDC(caida) instanceof Transparencia)) {
+        		this.tablero.mueveZombie(this.posicion, caida);
+            }
+        	this.setPosicionTablero(new CoordTablero(this.getPosicionTablero().getFila(), this.getPosicionTablero().getColumna()-1));
+            return true;
+        }
+        else 
+        	return false;
+        
+       /* if (this.tablero.getObjetoDC(caida) != null && !(this.tablero.getObjetoDC(caida) instanceof Transparencia)) {
             return false;
         }
+        else if (this.tablero.getObjetoDC(caida) instanceof Planta) {
+        	this.tablero.getObjetoDC(caida).setVida(this.tablero.getObjetoDC(caida).getVida()-25);
+        	if (this.tablero.getObjetoDC(caida).getVida()==0) {
+        		this.tablero.mueveZombie(this.posicion, caida);
+			}
+        	else {
+				return false;
+			}
+		}
         this.tablero.mueveZombie(this.posicion, caida);
         /*if (this.tablero.getVentana() != null) {
             this.tablero.getVentana().movePosTablero2(this.getObjeto(), caida);
         }*/
-        this.setPosicionTablero(new CoordTablero(this.getPosicionTablero().getFila(), this.getPosicionTablero().getColumna()-1));
-        return true;
+       // this.setPosicionTablero(new CoordTablero(this.getPosicionTablero().getFila(), this.getPosicionTablero().getColumna()-1));
+        //return true;
 	}
 }

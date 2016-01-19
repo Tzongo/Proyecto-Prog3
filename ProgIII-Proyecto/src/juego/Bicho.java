@@ -11,7 +11,7 @@ import accion.Quitable;
 
 public abstract class Bicho implements Quitable, Puntuable, Movible{
 
-	protected int vida;
+	protected int vida=50;
 	protected ObjetoDeJuego objeto;
 	protected CoordTablero posicion;
 	protected TableroBichos tablero;

@@ -24,7 +24,7 @@ public class PlantasVsZombies {
 	}
 
 	private static boolean buscaYQuitaLineas(final TableroBichos tc) {
-	
+
 		return false;// seHanQuitadoLineas;
 	}
 
@@ -69,7 +69,6 @@ public class PlantasVsZombies {
 		}
 		return cont;
 	}
-	
 
 	private static boolean hayMovimientosPosibles(final TableroBichos tc) {
 		for (int c = 1; c < tc.getColumnas(); ++c) {
@@ -96,29 +95,32 @@ public class PlantasVsZombies {
 	public static void movimientos(VentanaJuegoTablero v) {
 		for (int f = tablero.getFilas() - 1; f >= 0; --f) {
 			for (int c = 0; c < tablero.getColumnas(); ++c) {
-				System.out.println(tablero.getObjetoDC(new CoordTablero(f, c))+" g");
+				System.out.println(tablero.getObjetoDC(new CoordTablero(f, c)) + " g");
 				final CoordTablero ct = new CoordTablero(f, c);
 				final Bicho cm = tablero.getObjetoDC(ct);
 				if (cm instanceof Zombie) {
 					if (cm.mover()) {
-						v.movePosTablero(cm.getObjeto(),cm.getPosicionTablero());
+						if (tablero.getObjetoDC(ct) instanceof Planta) {
+							v.removeObjeto(cm.getObjeto());
+						}
 						
+						v.movePosTablero(cm.getObjeto(), cm.getPosicionTablero());
+
 					}
 
 				}
 			}
 		}
 	}
-	
-	
+
 	public static void movimientos3(VentanaJuegoTablero v) {
 		for (int f = tablero.getFilas() - 1; f >= 0; --f) {
 			for (int c = 0; c < tablero.getColumnas(); ++c) {
 				final CoordTablero ct = new CoordTablero(f, c);
 				final Bicho cm = tablero.getObjetoDC(ct);
 				if (cm instanceof Planta) {
-					ObjetoDeJuego oj=cm.getObjeto();
-					Bala b= new Bala(oj.getX(),oj.getY());
+					ObjetoDeJuego oj = cm.getObjeto();
+					Bala b = new Bala(oj.getX(), oj.getY());
 					if (b.mover()) {
 						v.animaciones3(oj, ct);
 						v.repaint();
@@ -128,7 +130,7 @@ public class PlantasVsZombies {
 			}
 		}
 	}
-	
+
 	public static void main(final String[] args) {
 		final int FILAS_COLS = 3;
 		int numMovs = 0;
@@ -142,41 +144,43 @@ public class PlantasVsZombies {
 				}
 			}
 		}
-		v.setTiempoPasoAnimacion(1000L, 40);
+		// velocidad zombies
+		v.setTiempoPasoAnimacion(500L, 40);
 		v.showMessage("Juego en curso");
 		boolean finJuego = false;
 		int movsSeguidosSinCaramelos = 0;
 		while (!finJuego && !v.isClosed()) {
 			movimientos(v);
-			movimientos3(v);
-		System.out.println(tablero.toString());
-			final CoordTablero c2 = v.readInicioDrag();
-			if (c2 != null) {
-				final CoordTablero c3 = v.getFinalDrag();
-				if (c2.distanciaCon(c3) <= 1.0) {
-					final Bicho cm1 = PlantasVsZombies.tablero.getBicho(c2);
-					final Bicho cm2 = PlantasVsZombies.tablero.getBicho(c3);
-					if (cm1 != null && cm2 != null) {
-						final ObjetoDeJuego inicio = cm1.getObjeto();
-						final ObjetoDeJuego finl = cm2.getObjeto();
-						v.movePosTablero(inicio, c3);
-						v.movePosTablero(finl, c2);
-						PlantasVsZombies.tablero.intercambiaCaramelos(c2, c3);
-						++movsSeguidosSinCaramelos;
-						++numMovs;
-						v.esperaAFinAnimaciones();
-						//v.esperaAFin();
-					}
-				}
-			}
+			// movimientos3(v);
+
+			System.out.println(tablero.toString());
+
+			/*
+			 * final CoordTablero c2 = v.readInicioDrag();
+			 * System.out.println(c2+"c2"); if (c2 != null) { final CoordTablero
+			 * c3 = v.getFinalDrag(); if (c2.distanciaCon(c3) <= 1.0) { final
+			 * Bicho cm1 = PlantasVsZombies.tablero.getBicho(c2); final Bicho
+			 * cm2 = PlantasVsZombies.tablero.getBicho(c3); if (cm1 != null &&
+			 * cm2 != null) { final ObjetoDeJuego inicio = cm1.getObjeto();
+			 * final ObjetoDeJuego finl = cm2.getObjeto();
+			 * v.movePosTablero(inicio, c3); v.movePosTablero(finl, c2);
+			 * PlantasVsZombies.tablero.intercambiaCaramelos(c2, c3);
+			 * ++movsSeguidosSinCaramelos; ++numMovs; v.esperaAFinAnimaciones();
+			 * //v.esperaAFin(); } } }
+			 */
 
 			v.esperaAFinAnimaciones();
-
+			for (int f = 0; f < FILAS_COLS; ++f) {
+				if (PlantasVsZombies.tablero.getObjetoDC(new CoordTablero(f, 0)) instanceof Zombie) {
+					finJuego=true;
+				}
+			}
 			v.showMessage("Movimientos realizados: " + numMovs);
 		}
+		
 		v.showMessage(
 				"Puntuaci\u00f3n final: " + PlantasVsZombies.miPuntuador.getPuntos() + ". Cerrando en 5 segundos...");
-		v.esperaUnRato(50000);
+		v.esperaUnRato(5000);
 		v.finish();
 	}
 }

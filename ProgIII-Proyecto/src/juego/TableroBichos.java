@@ -94,12 +94,12 @@ public class TableroBichos
         }
     }
     
-    public void setBicho(final Planta c, final CoordTablero ct) {
-        this.tablero[ct.getFila() + 1][ct.getColumna()] = c;
+    public void setBicho(final Bicho c, final CoordTablero ct) {
+        this.tablero[ct.getFila() ][ct.getColumna()] = c;
     }
     
     public Bicho getBicho(final CoordTablero ct) {
-    	final Bicho odc = this.tablero[ct.getFila() + 1][ct.getColumna()];
+    	final Bicho odc = this.tablero[ct.getFila() ][ct.getColumna()];
         if (odc instanceof Bicho) {
             return (Bicho)odc;
         }
@@ -119,7 +119,7 @@ public class TableroBichos
     }
     
     public void quitaObjetoDC(final CoordTablero ct) {
-        this.tablero[ct.getFila() + 1][ct.getColumna()] = null;
+        this.tablero[ct.getFila() ][ct.getColumna()] = null;
     }
     
     public void mueveZombie(final CoordTablero origen, final CoordTablero destino) {
@@ -131,12 +131,12 @@ public class TableroBichos
     }
     
     public void intercambiaCaramelos(final CoordTablero origen, final CoordTablero destino) {
-        final Bicho temp = this.tablero[destino.getFila() + 1][destino.getColumna()];
-        final CoordTablero tempCT = this.tablero[destino.getFila() + 1][destino.getColumna()].getPosicionTablero();
-        this.tablero[destino.getFila() + 1][destino.getColumna()].setPosicionTablero(this.tablero[origen.getFila() + 1][origen.getColumna()].getPosicionTablero());
-        this.tablero[origen.getFila() + 1][origen.getColumna()].setPosicionTablero(tempCT);
-        this.tablero[destino.getFila() + 1][destino.getColumna()] = this.tablero[origen.getFila() + 1][origen.getColumna()];
-        this.tablero[origen.getFila() + 1][origen.getColumna()] = temp;
+        final Bicho temp = this.tablero[destino.getFila() ][destino.getColumna()];
+        final CoordTablero tempCT = this.tablero[destino.getFila() ][destino.getColumna()].getPosicionTablero();
+        this.tablero[destino.getFila() ][destino.getColumna()].setPosicionTablero(this.tablero[origen.getFila() ][origen.getColumna()].getPosicionTablero());
+        this.tablero[origen.getFila()][origen.getColumna()].setPosicionTablero(tempCT);
+        this.tablero[destino.getFila() ][destino.getColumna()] = this.tablero[origen.getFila() ][origen.getColumna()];
+        this.tablero[origen.getFila() ][origen.getColumna()] = temp;
     }
     
     @Override
