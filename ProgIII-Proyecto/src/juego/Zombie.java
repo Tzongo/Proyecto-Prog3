@@ -60,6 +60,9 @@ public abstract class Zombie extends Bicho implements Movible{
             	this.tablero.getObjetoDC(caida).setVida(this.tablero.getObjetoDC(caida).getVida()-5);
             	if (this.tablero.getObjetoDC(caida).getVida()==0) {
             		this.tablero.mueveZombie(this.posicion, caida);
+            		Transparencia caram = new Transparencia(posicion,"Transparencia", 60, 60, this.tablero);
+                    this.tablero.setBicho(caram, posicion);
+                    this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(posicion).getObjeto(), posicion);
     			}
             	else {
     				return false;
@@ -71,8 +74,12 @@ public abstract class Zombie extends Bicho implements Movible{
         	this.setPosicionTablero(new CoordTablero(this.getPosicionTablero().getFila(), this.getPosicionTablero().getColumna()-1));
             return true;
         }
-        else 
-        	return false;
+        else {
+        	this.tablero.mueveZombie(this.posicion, caida);
+        	this.setPosicionTablero(new CoordTablero(this.getPosicionTablero().getFila(), this.getPosicionTablero().getColumna()-1));
+			return true;
+		}
+        	
         
        /* if (this.tablero.getObjetoDC(caida) != null && !(this.tablero.getObjetoDC(caida) instanceof Transparencia)) {
             return false;

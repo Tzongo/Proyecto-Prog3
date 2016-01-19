@@ -52,7 +52,7 @@ public class TableroBichos {
 
 		for (int f = 0; f < this.filas; ++f) {
 			for (int c = 0; c < this.columnas; ++c) {
-				if ((f == 0 || f == 1 || f == this.getFilas() - 1) && (c == 9)) {
+				if ((f == 0 /*|| f == 1 || f == this.getFilas() - 1*/) && (c == 9)) {
 					final Minizombie zombie = new Minizombie(new CoordTablero(f, c), anchoBicho, altoBicho, this);
 					this.tablero[f][c] = zombie;
 				} else if (c == 0 && (f == 0 || f == 1 || f == 2)) {

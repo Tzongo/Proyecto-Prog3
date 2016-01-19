@@ -96,9 +96,9 @@ public class PlantasVsZombies {
 	public static void movimientos(VentanaJuegoTablero v) {
 		for (int f = tablero.getFilas() - 1; f >= 0; --f) {
 			for (int c = 0; c < tablero.getColumnas(); ++c) {
-				System.out.println(tablero.getObjetoDC(new CoordTablero(f, c)) + " g");
 				final CoordTablero ct = new CoordTablero(f, c);
 				final Bicho cm = tablero.getObjetoDC(ct);
+				System.out.println(cm);
 				if (cm instanceof Zombie) {
 					if (cm.mover()) {
 						if (tablero.getObjetoDC(new CoordTablero(f, c - 2)) instanceof Planta) {
@@ -144,7 +144,7 @@ public class PlantasVsZombies {
 			}
 		}
 		// velocidad zombies
-		v.setTiempoPasoAnimacion(200L, 40);
+		v.setTiempoPasoAnimacion(2000L, 40);
 		v.showMessage("Juego en curso");
 		boolean finJuego = false;
 		int movsSeguidosSinCaramelos = 0;
