@@ -132,7 +132,7 @@ public class VentanaJuegoTablero extends JFrame {
 	}
 
 	private void calcTamanyo() {
-		this.pixelsPorFila = this.pAreaJuego.getHeight() * 1.0f / this.filasTablero;
+		this.pixelsPorFila = (this.pAreaJuego.getHeight()-60) * 1.0f / this.filasTablero;
 		this.pixelsPorColumna = this.pAreaJuego.getWidth() * 1.0f / this.colsTablero;
 		this.origenX = 0;
 		this.origenY = 0;
@@ -375,21 +375,21 @@ public class VentanaJuegoTablero extends JFrame {
 		this.zList=zList;
 		this.tablero=tablero;
 		if (zList != null && zList.size() > 0) {
-			if (hilo2 == null) {
-				(hilo2 = new HiloAnimacion2()).start();
+			if (hilo == null) {
+				(hilo = new HiloAnimacion()).start();
 			}
 			for (Bicho z : zList) {
 				if ( z.mover()) {
 					ObjetoDeJuego z2= z.getObjeto();
 					final Point pHasta = coordToPixs(new CoordTablero(z2.getX(), z2.getY()-1));
 					Animacion a = new Animacion(z2.getX(), pHasta.getX(), z2.getY(), pHasta.getY(), this.tiempoAnimMsg, z2);
-					if (this.animacionesPendientes2.indexOf(a) == -1) {
-						this.animacionesPendientes2.add(a);
+					if (this.animacionesPendientes.indexOf(a) == -1) {
+						this.animacionesPendientes.add(a);
 					} else {
-						final int pos = this.animacionesPendientes2.indexOf(a);
-						this.animacionesPendientes2.get(pos).xHasta = pHasta.getX();
-						this.animacionesPendientes2.get(pos).yHasta = pHasta.getY();
-						this.animacionesPendientes2.get(pos).msFaltan = this.tiempoAnimMsg;
+						final int pos = this.animacionesPendientes.indexOf(a);
+						this.animacionesPendientes.get(pos).xHasta = pHasta.getX();
+						this.animacionesPendientes.get(pos).yHasta = pHasta.getY();
+						this.animacionesPendientes.get(pos).msFaltan = this.tiempoAnimMsg;
 					}
 				}
 			}
