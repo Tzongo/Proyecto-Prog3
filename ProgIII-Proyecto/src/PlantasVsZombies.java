@@ -151,7 +151,7 @@ public class PlantasVsZombies {
 		while (!finJuego && !v.isClosed()) {
 			movimientos(v);
 			// movimientos3(v);
-
+			tablero.distribuyeZombiesAlAzar(60, 60);
 			System.out.println(tablero.toString());
 
 			/*
