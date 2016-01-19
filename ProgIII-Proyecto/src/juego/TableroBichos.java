@@ -43,7 +43,7 @@ public class TableroBichos
             }
         }
     }
-    
+   
     public VentanaJuegoTablero getVentana() {
         return this.miVentana;
     }

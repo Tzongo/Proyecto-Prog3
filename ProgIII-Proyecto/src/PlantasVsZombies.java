@@ -101,18 +101,13 @@ public class PlantasVsZombies {
 				final Bicho cm = tablero.getObjetoDC(ct);
 				if (cm instanceof Zombie) {
 					if (cm.mover()) {
-						System.out.println(tablero.getObjetoDC(new CoordTablero(f, c-1))+"planta?");
-						
-						if (tablero.getObjetoDC(new CoordTablero(f, c-2)) instanceof Planta) {
-							Planta p= (Planta) tablero.getObjetoDC(new CoordTablero(f, c-2));
+						if (tablero.getObjetoDC(new CoordTablero(f, c - 2)) instanceof Planta) {
+							Planta p = (Planta) tablero.getObjetoDC(new CoordTablero(f, c - 2));
 							p.quitar();
-							ObjetoDeJuego oj=new ObjetoDeJuego("Transparencia.png", true,60,60);
-							v.addObjeto(oj, ct);
+							
 						}
 						v.movePosTablero(cm.getObjeto(), cm.getPosicionTablero());
-
 					}
-
 				}
 			}
 		}
@@ -177,12 +172,12 @@ public class PlantasVsZombies {
 			v.esperaAFinAnimaciones();
 			for (int f = 0; f < FILAS_COLS; ++f) {
 				if (PlantasVsZombies.tablero.getObjetoDC(new CoordTablero(f, 0)) instanceof Zombie) {
-					finJuego=true;
+					finJuego = true;
 				}
 			}
 			v.showMessage("Movimientos realizados: " + numMovs);
 		}
-		
+
 		v.showMessage(
 				"Puntuaci\u00f3n final: " + PlantasVsZombies.miPuntuador.getPuntos() + ". Cerrando en 5 segundos...");
 		v.esperaUnRato(5000);

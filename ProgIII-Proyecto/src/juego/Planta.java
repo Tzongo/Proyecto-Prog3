@@ -59,23 +59,8 @@ public abstract class Planta extends Bicho {
             this.tablero.getVentana().removeObjeto(this.getObjeto());
         }
         this.tablero.quitaObjetoDC(this.posicion);
-        final int fila = this.posicion.getFila();
-        final int col = this.posicion.getColumna();
-        /*ObjetoDeustoCrash cerca = this.tablero.getObjetoDC(new CoordTablero(fila - 1, col));
-        if (cerca != null && cerca instanceof Tocable) {
-            ((Tocable)cerca).tocar();
-        }
-        cerca = this.tablero.getObjetoDC(new CoordTablero(fila + 1, col));
-        if (cerca != null && cerca instanceof Tocable) {
-            ((Tocable)cerca).tocar();
-        }
-        cerca = this.tablero.getObjetoDC(new CoordTablero(fila, col - 1));
-        if (cerca != null && cerca instanceof Tocable) {
-            ((Tocable)cerca).tocar();
-        }
-        cerca = this.tablero.getObjetoDC(new CoordTablero(fila, col + 1));
-        if (cerca != null && cerca instanceof Tocable) {
-            ((Tocable)cerca).tocar();
-        }*/
+        Transparencia caram = new Transparencia(posicion,"Transparencia", 60, 60, this.tablero);
+        //this.tablero[posicion.getFila()][posicion.getColumna()] = caram;
+        this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(posicion).getObjeto(), posicion);
     }
 }
