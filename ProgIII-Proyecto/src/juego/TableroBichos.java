@@ -19,7 +19,7 @@ public class TableroBichos
     public TableroBichos(final int f, final int c, final int anchoBicho, final int altoBicho, final VentanaJuegoTablero v) {
         this.filas = f;
         this.columnas = c;
-        this.tablero = new Bicho[f + 1][c];
+        this.tablero = new Bicho[f][c];
         this.miVentana = v;
         this.distribuyeBichosAlAzar(this.anchoBicho = anchoBicho, this.altoBicho = altoBicho);
         if (this.miVentana != null) {
@@ -36,9 +36,9 @@ public class TableroBichos
     }
     
     private void addTableroAVentana(final VentanaJuegoTablero v) {
-        for (int f = 0; f < this.getFilas() + 1; ++f) {
+        for (int f = 0; f < this.getFilas() ; ++f) {
             for (int c = 0; c < this.getColumnas(); ++c) {
-                final CoordTablero ct = new CoordTablero(f - 1, c);
+                final CoordTablero ct = new CoordTablero(f , c);
                 v.addObjeto(this.getObjetoDC(ct).getObjeto(), ct);
             }
         }
@@ -49,31 +49,31 @@ public class TableroBichos
     }
     
     private void distribuyeBichosAlAzar(final int anchoBicho, final int altoBicho) {
-    	System.out.println("distri");
     	
-        for (int f = -1; f < this.filas; ++f) {
+        for (int f = 0; f < this.filas; ++f) {
             for (int c = 0; c < this.columnas; ++c) {
                 if ((f == 0 || f==1 || f == this.getFilas() - 1) && (c == 9)) {
                     final Minizombie zombie = new Minizombie(new CoordTablero(f, c), anchoBicho , altoBicho , this);
-                    this.tablero[f + 1][c] = zombie;
+                    this.tablero[f ][c] = zombie;
 
                 	System.out.println("distri z");
                 }
-                else if (c == 0 && (f == 0 || f == 1 ||f == 2 /*||c == this.getColumnas() - 2)*/)) {
+                else if (c == 0 && (f == 0 || f == 1 ||f == 2)) {
                     final Sol sol = new Sol(new CoordTablero(f, c), anchoBicho, altoBicho, this);
-                    this.tablero[f + 1][c] = sol;
+                    this.tablero[f ][c] = sol;
 
                 	System.out.println("distri s");
                 }
-                else if (c == 1 && (f == 0 || f == 1 ||f == 2 /*||c == this.getColumnas() - 2)*/)) {
+                else if (c == 1 && (f == 0 || f == 1 ||f == 2 )) {
                     final Disparador disp = new Disparador(new CoordTablero(f, c), anchoBicho, altoBicho, this);
-                    this.tablero[f + 1][c] = disp;
+                    this.tablero[f][c] = disp;
 
                 	System.out.println("distri d");
                 }
                 else {
                     final Transparencia caram = new Transparencia(new CoordTablero(f, c),"Transparencia", anchoBicho, altoBicho, this);
-                    this.tablero[f + 1][c] = caram;
+                    this.tablero[f][c] = caram;
+                    System.out.println("distri t");
                 }
             }
         }
@@ -112,10 +112,10 @@ public class TableroBichos
         if (ct.getFila() < -1 || ct.getColumna() < 0 || ct.getFila() >= this.getFilas() || ct.getColumna() >= this.getColumnas()) {
             return null;
         }
-        else if (tablero[ct.getFila()+1][ct.getColumna()] == null) {
+        else if (tablero[ct.getFila()][ct.getColumna()] == null) {
 			return null;
 		}
-        return this.tablero[ct.getFila() +1][ct.getColumna()];
+        return this.tablero[ct.getFila() ][ct.getColumna()];
     }
     
     public void quitaObjetoDC(final CoordTablero ct) {
@@ -152,7 +152,7 @@ public class TableroBichos
                 }
                 else if (this.tablero[f][c] instanceof Planta) {
                     final Planta cud = (Planta)this.tablero[f][c];
-                    ret = String.valueOf(ret) + cud.getFuncion() + " ";
+                    ret = String.valueOf(ret) + cud.getFuncion() + ": ";
                 }
                 else {
                     ret = String.valueOf(ret) + "* ";

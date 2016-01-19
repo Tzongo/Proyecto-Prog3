@@ -96,11 +96,13 @@ public class PlantasVsZombies {
 	public static void movimientos(VentanaJuegoTablero v) {
 		for (int f = tablero.getFilas() - 1; f >= 0; --f) {
 			for (int c = 0; c < tablero.getColumnas(); ++c) {
+				System.out.println(tablero.getObjetoDC(new CoordTablero(f, c))+" g");
 				final CoordTablero ct = new CoordTablero(f, c);
 				final Bicho cm = tablero.getObjetoDC(ct);
 				if (cm instanceof Zombie) {
 					if (cm.mover()) {
 						v.movePosTablero(cm.getObjeto(),cm.getPosicionTablero());
+						
 					}
 
 				}
@@ -119,6 +121,7 @@ public class PlantasVsZombies {
 					Bala b= new Bala(oj.getX(),oj.getY());
 					if (b.mover()) {
 						v.animaciones3(oj, ct);
+						v.repaint();
 					}
 
 				}
@@ -139,13 +142,14 @@ public class PlantasVsZombies {
 				}
 			}
 		}
-		v.setTiempoPasoAnimacion(2500L, 40);
+		v.setTiempoPasoAnimacion(1000L, 40);
 		v.showMessage("Juego en curso");
 		boolean finJuego = false;
 		int movsSeguidosSinCaramelos = 0;
 		while (!finJuego && !v.isClosed()) {
 			movimientos(v);
 			movimientos3(v);
+		System.out.println(tablero.toString());
 			final CoordTablero c2 = v.readInicioDrag();
 			if (c2 != null) {
 				final CoordTablero c3 = v.getFinalDrag();

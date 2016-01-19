@@ -34,8 +34,8 @@ public class Bala extends Bicho {
 
 	    //dado las dimensiones del contendor JPanel
 	   public void LimitesXY(int width, int height) {
-	        limite_derecha  = width  - bala.getWidth(null);
-	        limite_inferior = height - bala.getHeight(null);
+	        limite_derecha  = 500;//width  - bala.getWidth(null);
+	        limite_inferior = 500;//height - bala.getHeight(null);
 	    }
 
 	   public boolean mover() {

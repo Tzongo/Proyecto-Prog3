@@ -38,6 +38,8 @@ public class VentanaJuegoTablero extends JFrame {
 	private HiloAnimacion3 hilo3;
 	private ArrayList<Animacion> animacionesPendientes;
 	private ArrayList<Animacion> animacionesPendientes2;
+
+	private ArrayList<Animacion> animacionesPendientes3;
 	private JPanelRelleno pRelleno1;
 	private TableroBichos tablero;
 	private ArrayList<Bicho> zList;
@@ -56,6 +58,8 @@ public class VentanaJuegoTablero extends JFrame {
 		this.hilo3 = null;
 		this.animacionesPendientes = new ArrayList<Animacion>();
 		this.animacionesPendientes2 = new ArrayList<Animacion>();
+
+		this.animacionesPendientes3 = new ArrayList<Animacion>();
 		this.anchVentana = anchuraVent;// 562
 		this.altVentana = alturaVent;// 317
 		this.filasTablero = filas;// 3
@@ -338,31 +342,6 @@ public class VentanaJuegoTablero extends JFrame {
 
 	}*/
 	
-	public void animaciones(TableroBichos tablero, ArrayList<Bicho> zList) {
-		this.zList=zList;
-		this.tablero=tablero;
-		if (zList != null && zList.size() > 0) {
-			if (hilo == null) {
-				(hilo = new HiloAnimacion()).start();
-			}
-			for (Bicho z : zList) {
-				if ( z.mover()) {
-					ObjetoDeJuego z2= z.getObjeto();
-					final Point pHasta = coordToPixs(new CoordTablero(z2.getX(), z2.getY()-1));
-					Animacion a = new Animacion(z2.getX(), pHasta.getX(), z2.getY(), pHasta.getY(), this.tiempoAnimMsg, z2);
-					if (this.animacionesPendientes.indexOf(a) == -1) {
-						this.animacionesPendientes.add(a);
-					} else {
-						final int pos = this.animacionesPendientes.indexOf(a);
-						this.animacionesPendientes.get(pos).xHasta = pHasta.getX();
-						this.animacionesPendientes.get(pos).yHasta = pHasta.getY();
-						this.animacionesPendientes.get(pos).msFaltan = this.tiempoAnimMsg;
-					}
-				}
-			}
-		}
-
-	}
 	public void animaciones3(final ObjetoDeJuego oj, final CoordTablero ct) {
 		if (oj != null) {
 			if (this.hilo3 == null) {
@@ -371,13 +350,13 @@ public class VentanaJuegoTablero extends JFrame {
 			final Point pHasta = this.coordToPixs(ct);
 			final Animacion a = new Animacion(oj.getX(), pHasta.getX(), oj.getY(), pHasta.getY(), this.tiempoAnimMsg,
 					oj);
-			if (this.animacionesPendientes.indexOf(a) == -1) {
-				this.animacionesPendientes.add(a);
+			if (this.animacionesPendientes3.indexOf(a) == -1) {
+				this.animacionesPendientes3.add(a);
 			} else {
-				final int pos = this.animacionesPendientes.indexOf(a);
-				this.animacionesPendientes.get(pos).xHasta = pHasta.getX();
-				this.animacionesPendientes.get(pos).yHasta = pHasta.getY();
-				this.animacionesPendientes.get(pos).msFaltan = this.tiempoAnimMsg;
+				final int pos = this.animacionesPendientes3.indexOf(a);
+				this.animacionesPendientes3.get(pos).xHasta = pHasta.getX();
+				this.animacionesPendientes3.get(pos).yHasta = pHasta.getY();
+				this.animacionesPendientes3.get(pos).msFaltan = this.tiempoAnimMsg;
 			}
 		}
 	}
