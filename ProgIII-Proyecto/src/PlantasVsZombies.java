@@ -17,7 +17,7 @@ public class PlantasVsZombies {
 	private static Puntuador miPuntuador;
 
 	static {
-		PlantasVsZombies.PAUSA_MOVIMIENTO_MS = 2500;
+		PlantasVsZombies.PAUSA_MOVIMIENTO_MS = 1000;
 		PlantasVsZombies.miPuntuador = new Puntuador();
 	}
 
@@ -67,6 +67,7 @@ public class PlantasVsZombies {
 		}
 		return cont;
 	}
+	
 
 	private static boolean hayMovimientosPosibles(final TableroBichos tc) {
 		for (int c = 1; c < tc.getColumnas(); ++c) {
@@ -90,21 +91,21 @@ public class PlantasVsZombies {
 		return false;
 	}
 
-	/*public static void movimientos(VentanaJuegoTablero v) {
+	public static void movimientos(VentanaJuegoTablero v) {
 		for (int f = tablero.getFilas() - 1; f >= 0; --f) {
 			for (int c = 0; c < tablero.getColumnas(); ++c) {
 				final CoordTablero ct = new CoordTablero(f, c);
 				final Bicho cm = tablero.getObjetoDC(ct);
 				if (cm instanceof Zombie) {
 					if (cm.mover()) {
-						v.movePosTablero2(cm.getObjeto(),cm.getPosicionTablero());
+						v.movePosTablero(cm.getObjeto(),cm.getPosicionTablero());
 					}
 
 				}
 			}
 		}
-	}*/
-	public static void movimientos2(VentanaJuegoTablero v) {
+	}
+	/*public static void movimientos2(VentanaJuegoTablero v) {
 		ArrayList<Bicho> zList=new ArrayList<>();
 		for (int f = tablero.getFilas() - 1; f >= 0; --f) {
 			for (int c = 0; c < tablero.getColumnas(); ++c) {
@@ -116,9 +117,8 @@ public class PlantasVsZombies {
 				}
 			}
 		}
-		v.animaciones2(tablero, zList);
-	}
-
+		v.animaciones(tablero, zList);
+	}*/
 	public static void main(final String[] args) {
 		final int FILAS_COLS = 3;
 		int numMovs = 0;
@@ -139,29 +139,8 @@ public class PlantasVsZombies {
 		while (!finJuego && !v.isClosed()) {
 			// caenLasPiezas(PlantasVsZombies.tablero);
 			//movimientos(v);
-			movimientos2(v);
-			/*for (int i = 0; i < tablero.getFilas(); i++) {
-				for (int j = 0; j < tablero.getColumnas(); j++) {
-					if (tablero.getBicho(new CoordTablero(i, j)) instanceof Zombie) {
-						Bicho zombie = tablero.getBicho(new CoordTablero(i,j));
-						ObjetoDeJuego z = zombie.getObjeto();
-						v.animaciones(tablero, z);
-					}
-				}
-			}*/
-
-			/*
-			 * boolean quitadoAlgo = true; while (quitadoAlgo) { quitadoAlgo =
-			 * buscaYQuitaLineas(PlantasVsZombies.tablero); if (quitadoAlgo) {
-			 * movsSeguidosSinCaramelos = 0;
-			 * caenLasPiezas(PlantasVsZombies.tablero); } }
-			 */
-			/*
-			 * if (movsSeguidosSinCaramelos >= 1) { finJuego = true; } else if
-			 * (!hayMovimientosPosibles(PlantasVsZombies.tablero)) { finJuego =
-			 * true; } else {
-			 */
-
+			movimientos(v);
+			//v.animar(true);
 			final CoordTablero c2 = v.readInicioDrag();
 			if (c2 != null) {
 				final CoordTablero c3 = v.getFinalDrag();
@@ -182,7 +161,7 @@ public class PlantasVsZombies {
 				}
 			}
 
-			v.esperaAFinAnimaciones2();
+			v.esperaAFinAnimaciones();
 
 			// }
 			v.showMessage("Movimientos realizados: " + numMovs);

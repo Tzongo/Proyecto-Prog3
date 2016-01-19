@@ -123,9 +123,9 @@ public class TableroBichos
     }
     
     public void mueveZombie(final CoordTablero origen, final CoordTablero destino) {
-        this.tablero[destino.getFila()][destino.getColumna()] = this.tablero[origen.getFila()][origen.getColumna()-1];
+        this.tablero[destino.getFila()][destino.getColumna()] = this.tablero[origen.getFila()][origen.getColumna()];
         this.tablero[origen.getFila()][origen.getColumna() ] = null;
-        if (this.tablero[destino.getFila()][destino.getColumna()] != null && !(this.tablero[destino.getFila()][destino.getColumna()] instanceof Transparencia)) {
+        if (this.tablero[destino.getFila()][destino.getColumna()] != null && (this.tablero[destino.getFila()][destino.getColumna()] instanceof Transparencia)) {
             this.tablero[destino.getFila()][destino.getColumna() ].setPosicionTablero(destino);
         }
     }

@@ -1,11 +1,15 @@
 package juego;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Point;
+
 import accion.Movible;
 import accion.Puntuable;
 import accion.Quitable;
 
 public abstract class Bicho implements Quitable, Puntuable, Movible{
-	// prueba
 
 	protected int vida;
 	protected ObjetoDeJuego objeto;
@@ -32,7 +36,7 @@ public abstract class Bicho implements Quitable, Puntuable, Movible{
 		this.objeto = new ObjetoDeJuego(String.valueOf(nomFicGrafico) + ".png", true, ancho, alto);
 	}
 
-
+	
 	public ObjetoDeJuego getObjeto() {
 		return this.objeto;
 	}
@@ -49,7 +53,7 @@ public abstract class Bicho implements Quitable, Puntuable, Movible{
 	public String toString() {
 		return "[objetoDeustoCrash (" + this.posicion.getFila() + "," + this.posicion.getColumna() + ")]";
 	}
-	@Override
+	/*@Override
 	public boolean mover() {
 		// TODO Auto-generated method stub
 		final int fila = this.posicion.getFila();
@@ -65,5 +69,23 @@ public abstract class Bicho implements Quitable, Puntuable, Movible{
         }
         this.setPosicionTablero(new CoordTablero(this.getPosicionTablero().getFila(), this.getPosicionTablero().getColumna()-1));
         return true;
+	}*/
+	@Override
+	public boolean mover() {
+		// TODO Auto-generated method stub
+		final int fila = this.posicion.getFila();
+        final int col = this.posicion.getColumna();
+        final CoordTablero caida = new CoordTablero(fila , col-1);
+        System.out.println(this.tablero.getObjetoDC(caida));
+        if (this.tablero.getObjetoDC(caida) != null && !(this.tablero.getObjetoDC(caida) instanceof Transparencia)) {
+            return false;
+        }
+        this.tablero.mueveZombie(this.posicion, caida);
+        /*if (this.tablero.getVentana() != null) {
+            this.tablero.getVentana().movePosTablero2(this.getObjeto(), caida);
+        }*/
+        this.setPosicionTablero(new CoordTablero(this.getPosicionTablero().getFila(), this.getPosicionTablero().getColumna()-1));
+        return true;
 	}
+	
 }
