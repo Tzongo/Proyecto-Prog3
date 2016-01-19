@@ -17,7 +17,7 @@ public class Bala extends Bicho {
 	    private int X;
 	    private int Y;
 
-	    private int velocidad_X;
+	    private int velocidad_X=50;
 	    private int velocidad_Y;
 
 	    private int limite_izquierda=0;
@@ -41,7 +41,7 @@ public class Bala extends Bicho {
 	   public boolean mover() {
 	        X += velocidad_X;
 	        Y += velocidad_Y;
-	        if (X < this.limite_izquierda) {
+	        /*if (X < this.limite_izquierda) {
 	            X = 0;
 	            velocidad_X = -velocidad_X;
 	        } else if (X > limite_derecha) {
@@ -55,7 +55,7 @@ public class Bala extends Bicho {
 	        } else if (Y > limite_inferior) {
 	            Y =  limite_inferior;
 	            velocidad_Y = -velocidad_Y;
-	        }
+	        }*/
 			return false;
 	    }
 

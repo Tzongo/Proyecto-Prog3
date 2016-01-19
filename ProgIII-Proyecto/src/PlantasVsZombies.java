@@ -3,9 +3,11 @@ import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
 
+import juego.Bala;
 import juego.Bicho;
 import juego.CoordTablero;
 import juego.ObjetoDeJuego;
+import juego.Planta;
 import juego.Puntuador;
 import juego.TableroBichos;
 import juego.Zombie;
@@ -105,20 +107,25 @@ public class PlantasVsZombies {
 			}
 		}
 	}
-	/*public static void movimientos2(VentanaJuegoTablero v) {
-		ArrayList<Bicho> zList=new ArrayList<>();
+	
+	
+	public static void movimientos3(VentanaJuegoTablero v) {
 		for (int f = tablero.getFilas() - 1; f >= 0; --f) {
 			for (int c = 0; c < tablero.getColumnas(); ++c) {
 				final CoordTablero ct = new CoordTablero(f, c);
 				final Bicho cm = tablero.getObjetoDC(ct);
-				
-				if (cm instanceof Zombie) {
-					zList.add(cm);
+				if (cm instanceof Planta) {
+					ObjetoDeJuego oj=cm.getObjeto();
+					Bala b= new Bala(oj.getX(),oj.getY());
+					if (b.mover()) {
+						v.animaciones3(oj, ct);
+					}
+
 				}
 			}
 		}
-		v.animaciones(tablero, zList);
-	}*/
+	}
+	
 	public static void main(final String[] args) {
 		final int FILAS_COLS = 3;
 		int numMovs = 0;
@@ -137,10 +144,8 @@ public class PlantasVsZombies {
 		boolean finJuego = false;
 		int movsSeguidosSinCaramelos = 0;
 		while (!finJuego && !v.isClosed()) {
-			// caenLasPiezas(PlantasVsZombies.tablero);
-			//movimientos(v);
 			movimientos(v);
-			//v.animar(true);
+			movimientos3(v);
 			final CoordTablero c2 = v.readInicioDrag();
 			if (c2 != null) {
 				final CoordTablero c3 = v.getFinalDrag();
@@ -163,7 +168,6 @@ public class PlantasVsZombies {
 
 			v.esperaAFinAnimaciones();
 
-			// }
 			v.showMessage("Movimientos realizados: " + numMovs);
 		}
 		v.showMessage(
