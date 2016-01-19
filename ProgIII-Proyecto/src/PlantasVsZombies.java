@@ -17,39 +17,12 @@ public class PlantasVsZombies {
 	private static Puntuador miPuntuador;
 
 	static {
-		PlantasVsZombies.PAUSA_MOVIMIENTO_MS = 500;
+		PlantasVsZombies.PAUSA_MOVIMIENTO_MS = 2500;
 		PlantasVsZombies.miPuntuador = new Puntuador();
 	}
 
 	private static boolean buscaYQuitaLineas(final TableroBichos tc) {
-		/*
-		 * final VentanaJuegoTablero v = tc.getVentana(); boolean
-		 * seHanQuitadoLineas = false; for (int f = 0; f < tc.getFilas(); ++f) {
-		 * String colorAnt = ""; int numIguales = 0; for (int c = 0; c <
-		 * tc.getColumnas(); ++c) { final CoordTablero ct = new CoordTablero(f,
-		 * c); final String colorNuevo = (tc.getCaramelo(ct) == null) ? "" :
-		 * tc.getCaramelo(ct).getColor(); if (!colorNuevo.equals("") &&
-		 * colorNuevo.equals(colorAnt)) { ++numIguales; } else { if (numIguales
-		 * >= 3) { for (int quitar = c - numIguales; quitar < c; ++quitar) {
-		 * quitarCar(tc, new CoordTablero(f, quitar), v); } seHanQuitadoLineas =
-		 * true; } colorAnt = colorNuevo; numIguales = 1; } } if (numIguales >=
-		 * 3) { for (int quitar2 = tc.getColumnas() - numIguales; quitar2 <
-		 * tc.getColumnas(); ++quitar2) { quitarCar(tc, new CoordTablero(f,
-		 * quitar2), v); } seHanQuitadoLineas = true; } } for (int c2 = 0; c2 <
-		 * tc.getColumnas(); ++c2) { String colorAnt = ""; int numIguales = 0;
-		 * for (int f2 = 0; f2 < tc.getFilas(); ++f2) { final CoordTablero ct =
-		 * new CoordTablero(f2, c2); final String colorNuevo =
-		 * (tc.getCaramelo(ct) == null) ? "" : tc.getCaramelo(ct).getColor(); if
-		 * (!colorNuevo.equals("") && colorNuevo.equals(colorAnt)) {
-		 * ++numIguales; } else { if (numIguales >= 3) { for (int quitar = f2 -
-		 * numIguales; quitar < f2; ++quitar) { quitarCar(tc, new
-		 * CoordTablero(quitar, c2), v); } seHanQuitadoLineas = true; } colorAnt
-		 * = colorNuevo; numIguales = 1; } } if (numIguales >= 3) { for (int
-		 * quitar2 = tc.getFilas() - numIguales; quitar2 < tc.getFilas();
-		 * ++quitar2) { quitarCar(tc, new CoordTablero(quitar2, c2), v); }
-		 * seHanQuitadoLineas = true; } } if (seHanQuitadoLineas) {
-		 * v.esperaUnRato(DeustoCrash.PAUSA_MOVIMIENTO_MS); }
-		 */
+	
 		return false;// seHanQuitadoLineas;
 	}
 
@@ -79,26 +52,6 @@ public class PlantasVsZombies {
 			});
 		} catch (Exception ex) {
 		}
-		/*
-		 * final VentanaJuegoTablero v = tc.getVentana(); boolean haCaidoAlguna
-		 * = true; while (haCaidoAlguna) { haCaidoAlguna = false; for (int f =
-		 * tc.getFilas() - 1; f >= 0; --f) { for (int c = 0; c <
-		 * tc.getColumnas(); ++c) { final CoordTablero ct = new CoordTablero(f,
-		 * c); final ObjetoDeustoCrash cm = tc.getObjetoDC(ct); if (cm == null)
-		 * { CoordTablero cSup = new CoordTablero(f - 1, c); ObjetoDeustoCrash
-		 * cmSup = tc.getObjetoDC(cSup); if (cmSup != null && cmSup instanceof
-		 * Caible) { if (((Caible)cmSup).caer()) { haCaidoAlguna = true; } }
-		 * else if (cmSup != null) { boolean caeIzquierda = false; if (c > 0) {
-		 * cSup = new CoordTablero(f - 1, c - 1); cmSup = tc.getObjetoDC(cSup);
-		 * if (cmSup != null && cmSup instanceof Caible &&
-		 * ((Caible)cmSup).caerDiagonal(false)) { haCaidoAlguna = true;
-		 * caeIzquierda = true; } } if (!caeIzquierda && c < tc.getColumnas() -
-		 * 1) { cSup = new CoordTablero(f - 1, c + 1); cmSup =
-		 * tc.getObjetoDC(cSup); if (cmSup != null && cmSup instanceof Caible &&
-		 * ((Caible)cmSup).caerDiagonal(true)) { haCaidoAlguna = true; } } } } }
-		 * } if (haCaidoAlguna) { DeustoCrash.tablero.reponerFilaOculta();
-		 * v.esperaAFinAnimaciones(); } }
-		 */
 	}
 
 	private static int caramelosQuedan(final TableroBichos tc) {
@@ -137,20 +90,20 @@ public class PlantasVsZombies {
 		return false;
 	}
 
-	public static void movimientos(VentanaJuegoTablero v) {
+	/*public static void movimientos(VentanaJuegoTablero v) {
 		for (int f = tablero.getFilas() - 1; f >= 0; --f) {
 			for (int c = 0; c < tablero.getColumnas(); ++c) {
 				final CoordTablero ct = new CoordTablero(f, c);
 				final Bicho cm = tablero.getObjetoDC(ct);
 				if (cm instanceof Zombie) {
 					if (cm.mover()) {
-						v.movePosTablero2(cm.getObjeto());
+						v.movePosTablero2(cm.getObjeto(),cm.getPosicionTablero());
 					}
 
 				}
 			}
 		}
-	}
+	}*/
 	public static void movimientos2(VentanaJuegoTablero v) {
 		ArrayList<Bicho> zList=new ArrayList<>();
 		for (int f = tablero.getFilas() - 1; f >= 0; --f) {
@@ -163,7 +116,7 @@ public class PlantasVsZombies {
 				}
 			}
 		}
-		v.animaciones(tablero, zList);
+		v.animaciones2(tablero, zList);
 	}
 
 	public static void main(final String[] args) {
@@ -179,13 +132,13 @@ public class PlantasVsZombies {
 				}
 			}
 		}
-		v.setTiempoPasoAnimacion(200L, 40);
+		v.setTiempoPasoAnimacion(2500L, 40);
 		v.showMessage("Juego en curso");
 		boolean finJuego = false;
 		int movsSeguidosSinCaramelos = 0;
 		while (!finJuego && !v.isClosed()) {
 			// caenLasPiezas(PlantasVsZombies.tablero);
-			movimientos(v);
+			//movimientos(v);
 			movimientos2(v);
 			/*for (int i = 0; i < tablero.getFilas(); i++) {
 				for (int j = 0; j < tablero.getColumnas(); j++) {
@@ -224,10 +177,12 @@ public class PlantasVsZombies {
 						++movsSeguidosSinCaramelos;
 						++numMovs;
 						v.esperaAFinAnimaciones();
-						v.esperaAFinAnimaciones2();
+						//v.esperaAFin();
 					}
 				}
 			}
+
+			v.esperaAFinAnimaciones2();
 
 			// }
 			v.showMessage("Movimientos realizados: " + numMovs);

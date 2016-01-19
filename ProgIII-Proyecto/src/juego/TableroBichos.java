@@ -108,13 +108,14 @@ public class TableroBichos
     
     
     public Bicho getObjetoDC(final CoordTablero ct) {
+    	//System.out.println(tablero[ct.getFila()+1][ct.getColumna()]);
         if (ct.getFila() < -1 || ct.getColumna() < 0 || ct.getFila() >= this.getFilas() || ct.getColumna() >= this.getColumnas()) {
             return null;
         }
         else if (tablero[ct.getFila()+1][ct.getColumna()] == null) {
 			return null;
 		}
-        return this.tablero[ct.getFila() + 1][ct.getColumna()];
+        return this.tablero[ct.getFila() +1][ct.getColumna()];
     }
     
     public void quitaObjetoDC(final CoordTablero ct) {
@@ -122,10 +123,10 @@ public class TableroBichos
     }
     
     public void mueveZombie(final CoordTablero origen, final CoordTablero destino) {
-        this.tablero[destino.getFila()][destino.getColumna()-1] = this.tablero[origen.getFila()][origen.getColumna() -1];
-        this.tablero[origen.getFila()][origen.getColumna() - 1] = null;
-        if (this.tablero[destino.getFila()][destino.getColumna() - 1] != null) {
-            this.tablero[destino.getFila()][destino.getColumna() - 1].setPosicionTablero(destino);
+        this.tablero[destino.getFila()][destino.getColumna()] = this.tablero[origen.getFila()][origen.getColumna()-1];
+        this.tablero[origen.getFila()][origen.getColumna() ] = null;
+        if (this.tablero[destino.getFila()][destino.getColumna()] != null && !(this.tablero[destino.getFila()][destino.getColumna()] instanceof Transparencia)) {
+            this.tablero[destino.getFila()][destino.getColumna() ].setPosicionTablero(destino);
         }
     }
     
