@@ -10,6 +10,7 @@ import juego.ObjetoDeJuego;
 import juego.Planta;
 import juego.Puntuador;
 import juego.TableroBichos;
+import juego.Transparencia;
 import juego.Zombie;
 import ventanas.VentanaJuegoTablero;
 
@@ -100,10 +101,14 @@ public class PlantasVsZombies {
 				final Bicho cm = tablero.getObjetoDC(ct);
 				if (cm instanceof Zombie) {
 					if (cm.mover()) {
-						if (tablero.getObjetoDC(ct) instanceof Planta) {
-							v.removeObjeto(cm.getObjeto());
-						}
+						System.out.println(tablero.getObjetoDC(new CoordTablero(f, c-1))+"planta?");
 						
+						if (tablero.getObjetoDC(new CoordTablero(f, c-2)) instanceof Planta) {
+							Planta p= (Planta) tablero.getObjetoDC(new CoordTablero(f, c-2));
+							p.quitar();
+							ObjetoDeJuego oj=new ObjetoDeJuego("Transparencia.png", true,60,60);
+							v.addObjeto(oj, ct);
+						}
 						v.movePosTablero(cm.getObjeto(), cm.getPosicionTablero());
 
 					}

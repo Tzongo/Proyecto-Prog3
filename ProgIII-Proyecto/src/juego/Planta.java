@@ -1,5 +1,6 @@
 package juego;
 
+
 public abstract class Planta extends Bicho {
 	private int funcion;//1 ataque(disparador)	,2 crear soles(sol)
 	private int recarga;//tiempo de recarga ms
@@ -50,5 +51,31 @@ public abstract class Planta extends Bicho {
 	public void setCosto(int costo) {
 		this.costo = costo;
 	}
-
+	public void quitar() {
+        /*if (this.miPuntuador != null) {
+            this.miPuntuador.addPuntos(1);
+        }*/
+        if (this.tablero.getVentana() != null) {
+            this.tablero.getVentana().removeObjeto(this.getObjeto());
+        }
+        this.tablero.quitaObjetoDC(this.posicion);
+        final int fila = this.posicion.getFila();
+        final int col = this.posicion.getColumna();
+        /*ObjetoDeustoCrash cerca = this.tablero.getObjetoDC(new CoordTablero(fila - 1, col));
+        if (cerca != null && cerca instanceof Tocable) {
+            ((Tocable)cerca).tocar();
+        }
+        cerca = this.tablero.getObjetoDC(new CoordTablero(fila + 1, col));
+        if (cerca != null && cerca instanceof Tocable) {
+            ((Tocable)cerca).tocar();
+        }
+        cerca = this.tablero.getObjetoDC(new CoordTablero(fila, col - 1));
+        if (cerca != null && cerca instanceof Tocable) {
+            ((Tocable)cerca).tocar();
+        }
+        cerca = this.tablero.getObjetoDC(new CoordTablero(fila, col + 1));
+        if (cerca != null && cerca instanceof Tocable) {
+            ((Tocable)cerca).tocar();
+        }*/
+    }
 }

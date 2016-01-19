@@ -59,8 +59,6 @@ public abstract class Zombie extends Bicho implements Movible{
         	if (this.tablero.getObjetoDC(caida) instanceof Planta) {
             	this.tablero.getObjetoDC(caida).setVida(this.tablero.getObjetoDC(caida).getVida()-25);
             	if (this.tablero.getObjetoDC(caida).getVida()==0) {
-            		this.tablero.quitaObjetoDC(caida);
-            		this.tablero.setBicho(new Transparencia(caida,"Transparencia", 60, 60, null), caida);
             		this.tablero.mueveZombie(this.posicion, caida);
     			}
             	else {
