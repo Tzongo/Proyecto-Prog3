@@ -104,7 +104,6 @@ public class PlantasVsZombies {
 						if (tablero.getObjetoDC(new CoordTablero(f, c - 2)) instanceof Planta) {
 							Planta p = (Planta) tablero.getObjetoDC(new CoordTablero(f, c - 2));
 							p.quitar();
-							
 						}
 						v.movePosTablero(cm.getObjeto(), cm.getPosicionTablero());
 					}
@@ -145,7 +144,7 @@ public class PlantasVsZombies {
 			}
 		}
 		// velocidad zombies
-		v.setTiempoPasoAnimacion(500L, 40);
+		v.setTiempoPasoAnimacion(200L, 40);
 		v.showMessage("Juego en curso");
 		boolean finJuego = false;
 		int movsSeguidosSinCaramelos = 0;

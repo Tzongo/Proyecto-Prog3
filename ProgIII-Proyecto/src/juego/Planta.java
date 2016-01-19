@@ -60,7 +60,7 @@ public abstract class Planta extends Bicho {
         }
         this.tablero.quitaObjetoDC(this.posicion);
         Transparencia caram = new Transparencia(posicion,"Transparencia", 60, 60, this.tablero);
-        //this.tablero[posicion.getFila()][posicion.getColumna()] = caram;
+        this.tablero.setBicho(caram, posicion);
         this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(posicion).getObjeto(), posicion);
     }
 }
