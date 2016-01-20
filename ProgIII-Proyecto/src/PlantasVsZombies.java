@@ -6,6 +6,7 @@ import javax.swing.SwingUtilities;
 import juego.Bala;
 import juego.Bicho;
 import juego.CoordTablero;
+import juego.Disparador;
 import juego.ObjetoDeJuego;
 import juego.Planta;
 import juego.Puntuador;
@@ -137,6 +138,19 @@ public class PlantasVsZombies {
 				if (cm instanceof Zombie) {
 					ObjetoDeJuego oj = cm.getObjeto();
 					((Zombie) cm).matar();
+				}
+			}
+		}
+	}
+	
+	public static void diparos(VentanaJuegoTablero v) {
+		for (int f = tablero.getFilas() - 1; f >= 0; --f) {
+			for (int c = 0; c < tablero.getColumnas(); ++c) {
+				final CoordTablero ct = new CoordTablero(f, c);
+				final Bicho cm = tablero.getObjetoDC(ct);
+				if (cm instanceof Disparador) {
+					ObjetoDeJuego oj = cm.getObjeto();
+					((Disparador) cm).disparar();
 				}
 			}
 		}

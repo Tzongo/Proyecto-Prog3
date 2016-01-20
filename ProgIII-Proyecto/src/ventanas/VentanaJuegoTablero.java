@@ -16,7 +16,7 @@ public class VentanaJuegoTablero extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JLabel lMensaje;
-	private JPanelIMG pAreaJuego;
+	public JPanelIMG pAreaJuego;
 	private JPanelIMG pFondo;
 	private int anchVentana;
 	private int altVentana;

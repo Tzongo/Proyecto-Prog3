@@ -65,7 +65,7 @@ public class Bala extends Bicho {
 	    }
 
 	    public void dibujar(Graphics g) {
-	        Graphics2D g2 = (Graphics2D)g;
+	        Graphics2D g2 =(Graphics2D)g;
 	        g2.fillOval (350, 270, 50, 70);
 	        //g2.drawImage(bala, X, Y, null);
 	    }
