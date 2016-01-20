@@ -61,11 +61,7 @@ public class Minizombie extends Zombie implements Quitable, Movible{
 		
 	}
 
-	@Override
-	public void quitar() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	/*@Override
 	public boolean mover() {

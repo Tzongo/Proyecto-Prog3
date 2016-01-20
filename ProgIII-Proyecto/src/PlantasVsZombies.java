@@ -129,7 +129,18 @@ public class PlantasVsZombies {
 			}
 		}
 	}
-
+	public static void mataZombies(VentanaJuegoTablero v) {
+		for (int f = tablero.getFilas() - 1; f >= 0; --f) {
+			for (int c = 0; c < tablero.getColumnas(); ++c) {
+				final CoordTablero ct = new CoordTablero(f, c);
+				final Bicho cm = tablero.getObjetoDC(ct);
+				if (cm instanceof Zombie) {
+					ObjetoDeJuego oj = cm.getObjeto();
+					((Zombie) cm).matar();
+				}
+			}
+		}
+	}
 	public static void main(final String[] args) {
 		final int FILAS_COLS = 3;
 		int numMovs = 0;
@@ -153,7 +164,7 @@ public class PlantasVsZombies {
 			// movimientos3(v);
 			tablero.distribuyeZombiesAlAzar(60, 60);
 			System.out.println(tablero.toString());
-
+			mataZombies(v);
 			/*
 			 * final CoordTablero c2 = v.readInicioDrag();
 			 * System.out.println(c2+"c2"); if (c2 != null) { final CoordTablero
