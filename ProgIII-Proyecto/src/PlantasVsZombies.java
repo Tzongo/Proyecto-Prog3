@@ -112,6 +112,7 @@ public class PlantasVsZombies {
 			}
 		}
 	}
+
 	public static void mataZombies(VentanaJuegoTablero v) {
 		for (int f = tablero.getFilas() - 1; f >= 0; --f) {
 			for (int c = 0; c < tablero.getColumnas(); ++c) {
@@ -124,25 +125,37 @@ public class PlantasVsZombies {
 			}
 		}
 	}
+
 	private static void disparos(VentanaJuegoTablero v) {
 		// TODO Auto-generated method stub
 		for (int f = tablero.getFilas() - 1; f >= 0; --f) {
 			for (int c = 0; c < tablero.getColumnas(); ++c) {
 				final CoordTablero ct = new CoordTablero(f, c);
 				final Bicho cm = tablero.getObjetoDC(ct);
-				if (cm instanceof Disparador ) {
-					if (((Disparador) cm).disparar()) {
-					ArrayList<Bala> balas=((Disparador) cm).getBalas();
-					for (int i = 0; i < balas.size(); i++) {
-						v.movePosTableroBala(((Disparador) cm).getBala(i).getObjeto(), ((Disparador) cm).getBala(i).getPosicionTablero());
-					}
-					
+				if (cm instanceof Disparador) {
+					{
+						((Disparador) cm).disparar();
+						ArrayList<Bala> balas = ((Disparador) cm).getBalas();
+						for (int i = 0; i < balas.size(); i++) {
+							v.movePosTableroBala(((Disparador) cm).getBala(i).getObjeto(),
+									((Disparador) cm).getBala(i).getPosicionTablero());
+						}
+
 					}
 				}
 			}
 		}
 	}
-
+private static void añadirP(VentanaJuegoTablero v) {
+	if (v.dispOn) {
+		final CoordTablero c2 = v.readClick();
+		System.out.println(c2);
+		if (tablero.getBicho(c2)==null) {
+			final Disparador disp = new Disparador(c2, 60, 60,tablero);
+			tablero.setBicho(disp, c2);
+		}
+	}
+}
 	public static void main(final String[] args) {
 		final int FILAS_COLS = 3;
 		int numMovs = 0;
@@ -166,8 +179,9 @@ public class PlantasVsZombies {
 			// movimientos3(v);
 			tablero.distribuyeZombiesAlAzar(60, 60);
 			System.out.println(tablero.toString());
-			//mataZombies(v);
+			// mataZombies(v);
 			disparos(v);
+			añadirP(v);
 			/*
 			 * final CoordTablero c2 = v.readInicioDrag();
 			 * System.out.println(c2+"c2"); if (c2 != null) { final CoordTablero
@@ -197,5 +211,4 @@ public class PlantasVsZombies {
 		v.finish();
 	}
 
-	
 }

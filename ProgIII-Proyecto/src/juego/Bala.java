@@ -55,30 +55,153 @@ public class Bala extends Bicho {
 		// TODO Auto-generated method stub
 		final int fila = this.posicion.getFila();
 		final int col = this.posicion.getColumna();
-		final CoordTablero caida = new CoordTablero(fila, col + 1);
+		if (col + 1 < 10) {
 
-		if (this.tablero.getObjetoDC(caida) != null) {
-			if (this.tablero.getObjetoDC(caida) instanceof Zombie) {
-				this.tablero.getObjetoDC(caida).setVida(this.tablero.getObjetoDC(caida).getVida() - 5);
-				if (this.tablero.getObjetoDC(caida).getVida() == 0) {
+			final CoordTablero caida = new CoordTablero(fila, col + 1);
+
+			if (this.tablero.getObjetoDC(caida) != null) {
+				if (this.tablero.getObjetoDC(caida) instanceof Zombie) {
+					this.tablero.getObjetoDC(caida).setVida(this.tablero.getObjetoDC(caida).getVida() - 5);
+
+					if (this.tablero.getObjetoDC(caida).getVida() <= 0) {
+						this.quitar();
+						this.tablero.getObjetoDC(caida).quitar();
+						this.tablero.mueveBala(this.posicion, caida);
+						// Transparencia caram = new Transparencia(posicion,
+						// "Transparencia", 60, 60, this.tablero);
+						// this.tablero.setBicho(caram, posicion);
+						// this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(posicion).getObjeto(),
+						// posicion);
+					} else {
+						this.quitar();
+						return false;
+					}
+				} else if (this.tablero.getObjetoDC(
+						new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())) instanceof Zombie) {
+					this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()))
+							.setVida(this.tablero.getObjetoDC(caida).getVida() - 5);
+
+					if (this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()))
+							.getVida() <= 0) {
+						this.quitar();
+						this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()))
+								.quitar();
+						this.tablero.mueveBala(this.posicion,
+								new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()));
+						// Transparencia caram = new Transparencia(posicion,
+						// "Transparencia", 60, 60, this.tablero);
+						// this.tablero.setBicho(caram, posicion);
+						// this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(new
+						// CoordTablero(this.posicion.getFila(),
+						// this.posicion.getColumna())).getObjeto(), new
+						// CoordTablero(this.posicion.getFila(),
+						// this.posicion.getColumna()));
+					} else {
+						this.quitar();
+						return false;
+					}
+				} else if (this.tablero.getObjetoDC(
+						new CoordTablero(this.posicion.getFila(), this.posicion.getColumna() + 2)) instanceof Zombie) {
+					this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna() + 2))
+							.setVida(this.tablero.getObjetoDC(caida).getVida() - 5);
+
+					if (this.tablero
+							.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna() + 2))
+							.getVida() <= 0) {
+						this.quitar();
+						this.tablero
+								.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna() + 2))
+								.quitar();
+						this.tablero.mueveBala(this.posicion,
+								new CoordTablero(this.posicion.getFila(), this.posicion.getColumna() + 2));
+						// Transparencia caram = new Transparencia(posicion,
+						// "Transparencia", 60, 60, this.tablero);
+						// this.tablero.setBicho(caram, new
+						// CoordTablero(this.posicion.getFila(),
+						// this.posicion.getColumna()+2));
+						// this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(new
+						// CoordTablero(this.posicion.getFila(),
+						// this.posicion.getColumna()+2)).getObjeto(), new
+						// CoordTablero(this.posicion.getFila(),
+						// this.posicion.getColumna()));
+					} else {
+						this.quitar();
+						return false;
+					}
+				} else if ((this.tablero.getObjetoDC(caida) instanceof Transparencia)) {
 					this.tablero.mueveBala(this.posicion, caida);
-					Transparencia caram = new Transparencia(posicion, "Transparencia", 60, 60, this.tablero);
-					this.tablero.setBicho(caram, posicion);
-					this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(posicion).getObjeto(), posicion);
-				} else {
-					return false;
 				}
-			} else if ((this.tablero.getObjetoDC(caida) instanceof Transparencia)) {
-				this.tablero.mueveBala(this.posicion, caida);
+				this.setPosicionTablero(new CoordTablero(this.getPosicionTablero().getFila(),
+						this.getPosicionTablero().getColumna() + 1));
+				return true;
+			} else {
+				if (this.tablero.getObjetoDC(
+						new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())) instanceof Zombie) {
+					if (this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())).getVida()>0) {
+						this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()))
+							.setVida(this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())).getVida() - 5);
+					}
+					
+
+					if (this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()))
+							.getVida() <= 0) {
+						this.quitar();
+						this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()))
+								.quitar();
+						this.tablero.mueveBala(this.posicion,
+								new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()));
+						// Transparencia caram = new Transparencia(posicion,
+						// "Transparencia", 60, 60, this.tablero);
+						// this.tablero.setBicho(caram, posicion);
+						// this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(new
+						// CoordTablero(this.posicion.getFila(),
+						// this.posicion.getColumna())).getObjeto(), new
+						// CoordTablero(this.posicion.getFila(),
+						// this.posicion.getColumna()));
+					} else {
+						this.quitar();
+						return false;
+					}
+				} else if (this.tablero.getObjetoDC(
+						new CoordTablero(this.posicion.getFila(), this.posicion.getColumna() + 2)) instanceof Zombie) {
+					
+					if (this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()+2)).getVida()>0) {
+						this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()+2))
+						.setVida(this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()+2)).getVida() - 5);
+				}
+
+					if (this.tablero
+							.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna() + 2))
+							.getVida() <= 0) {
+						this.quitar();
+						this.tablero
+								.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna() + 2))
+								.quitar();
+						this.tablero.mueveBala(this.posicion,
+								new CoordTablero(this.posicion.getFila(), this.posicion.getColumna() + 2));
+						// Transparencia caram = new Transparencia(posicion,
+						// "Transparencia", 60, 60, this.tablero);
+						// this.tablero.setBicho(caram, new
+						// CoordTablero(this.posicion.getFila(),
+						// this.posicion.getColumna()+2));
+						// this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(new
+						// CoordTablero(this.posicion.getFila(),
+						// this.posicion.getColumna()+2)).getObjeto(), new
+						// CoordTablero(this.posicion.getFila(),
+						// this.posicion.getColumna()));
+					} else {
+						this.quitar();
+						return false;
+					}
+				} else {
+					this.tablero.mueveBala(this.posicion, caida);
+					this.setPosicionTablero(new CoordTablero(this.getPosicionTablero().getFila(),
+							this.getPosicionTablero().getColumna() + 1));
+					return true;
+				}
 			}
-			this.setPosicionTablero(
-					new CoordTablero(this.getPosicionTablero().getFila(), this.getPosicionTablero().getColumna() + 1));
-			return true;
-		} else {
-			this.tablero.mueveBala(this.posicion, caida);
-			this.setPosicionTablero(
-					new CoordTablero(this.getPosicionTablero().getFila(), this.getPosicionTablero().getColumna() + 1));
-			return true;
 		}
+		this.quitar();
+		return false;
 	}
 }

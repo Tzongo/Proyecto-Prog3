@@ -99,7 +99,7 @@ public class Disparador extends Planta implements Quitable, Puntuable{
 		// TODO Auto-generated method stub
 		return false;
 	}
-	public boolean disparar() {
+	public void disparar() {
 		
 		Bala b = new Bala(new CoordTablero(posicion.getFila(), posicion.getColumna()+1), "Bala", 60, 60, this.tablero);
 		
@@ -109,12 +109,9 @@ public class Disparador extends Planta implements Quitable, Puntuable{
         for (int i = 0; i < balas.size(); i++) {
             Boolean s=balas.get(i).mover();
 		}
-		
-        Boolean s=b.mover();
         this.tablero.setBicho(this, posicion);
         this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(posicion).getObjeto(), posicion);
      
-        return s;
 	}
 	public ArrayList<Bala> getBalas() {
 		return balas;

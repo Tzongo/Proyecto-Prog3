@@ -58,7 +58,7 @@ public class TableroBichos {
 				} else if (c == 0 && (f == 0 || f == 1 || f == 2)) {
 					final Sol sol = new Sol(new CoordTablero(f, c), anchoBicho, altoBicho, this);
 					this.tablero[f][c] = sol;
-				} else if (c == 1 && (f == 0 || f == 1 || f == 2)) {
+				} else if (c == 1 && (f == 0 /*|| f == 1 || f == 2*/)) {
 					final Disparador disp = new Disparador(new CoordTablero(f, c), anchoBicho, altoBicho, this);
 					this.tablero[f][c] = disp;
 				} else {
@@ -158,7 +158,7 @@ public class TableroBichos {
 	@Override
 	public String toString() {
 		String ret = "";
-		for (int f = 1; f < this.filas; ++f) {
+		for (int f = 0; f < this.filas; ++f) {
 			for (int c = 0; c < this.columnas; ++c) {
 				if (this.tablero[f][c] == null) {
 					ret = String.valueOf(ret) + "- ";

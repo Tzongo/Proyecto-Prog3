@@ -17,6 +17,7 @@ public class VentanaJuegoTablero extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JLabel lMensaje;
 	public JPanelIMG pAreaJuego;
+	public JPanel pAreaBotones;
 	private JPanelIMG pFondo;
 	private int anchVentana;
 	private int altVentana;
@@ -38,12 +39,9 @@ public class VentanaJuegoTablero extends JFrame {
 	private HiloAnimacion3 hilo3;
 	private ArrayList<Animacion> animacionesPendientes;
 	private ArrayList<Animacion> animacionesPendientes2;
-
+	private JButton disp;
 	private ArrayList<Animacion> animacionesPendientes3;
-	private JPanelRelleno pRelleno1;
-	private TableroBichos tablero;
-	private ArrayList<Bicho> zList;
-	    private Timer timer;
+	public boolean dispOn;
 
 	public VentanaJuegoTablero(final int anchuraVent, final int alturaVent, final int filas, final int columnas,
 			final boolean casCuadradas) {
@@ -64,8 +62,10 @@ public class VentanaJuegoTablero extends JFrame {
 		this.filasTablero = filas;// 3
 		this.colsTablero = columnas;// 10
 		this.casillasCuadradas = casCuadradas;
-		this.pRelleno1 = new JPanelRelleno();
-
+		new JPanelRelleno();
+		this.pAreaBotones = new JPanel();
+		this.disp= new JButton("Disparador");
+		this.dispOn=false;
 		try {
 			SwingUtilities.invokeAndWait(new Runnable() {
 				public void run() {
@@ -78,13 +78,16 @@ public class VentanaJuegoTablero extends JFrame {
 					VentanaJuegoTablero.this.setTitle("Ventana de juego de tablero");
 
 					VentanaJuegoTablero.this.getContentPane().add(VentanaJuegoTablero.this.pAreaJuego, "Center");
+
+					VentanaJuegoTablero.this.getContentPane().add(VentanaJuegoTablero.this.pAreaBotones, "South");
+					VentanaJuegoTablero.this.pAreaBotones.add(disp);
 					VentanaJuegoTablero.this.pAreaJuego.setBackground("img/tablero-american-suburbs.png");
 					// VentanaJuegoTablero.this.pAreaJuego.setBackground("img/tablero-american-suburbs.png");
 					// VentanaJuegoTablero.this.pFondo.add(VentanaJuegoTablero.this.pRelleno1,
 					// "North");
 					// VentanaJuegoTablero.this.getContentPane().add(VentanaJuegoTablero.this.pFondo,
 					// "Center");
-					VentanaJuegoTablero.this.getContentPane().add(VentanaJuegoTablero.this.lMensaje, "South");
+					VentanaJuegoTablero.this.pAreaBotones.add(VentanaJuegoTablero.this.lMensaje);
 					VentanaJuegoTablero.this.pAreaJuego.setLayout(null);
 					VentanaJuegoTablero.this.lMensaje.setHorizontalAlignment(0);
 					VentanaJuegoTablero.this.setVisible(true);
@@ -121,6 +124,52 @@ public class VentanaJuegoTablero extends JFrame {
 						}
 					});
 					
+					VentanaJuegoTablero.this.disp.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseReleased(final MouseEvent arg0) {
+						}
+
+						@Override
+						public void mousePressed(final MouseEvent arg0) {
+							VentanaJuegoTablero.access$11(VentanaJuegoTablero.this,
+									VentanaJuegoTablero.this.pixsToCoord(arg0.getX(), arg0.getY()));
+						}
+
+						@Override
+						public void mouseClicked(final MouseEvent arg0) {
+							VentanaJuegoTablero.this.dispOn=true;
+						}
+					});
+					VentanaJuegoTablero.this.pAreaBotones.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseReleased(final MouseEvent arg0) {
+							
+							
+						}
+
+						@Override
+						public void mousePressed(final MouseEvent arg0) {
+							VentanaJuegoTablero.access$11(VentanaJuegoTablero.this,
+									VentanaJuegoTablero.this.pixsToCoord(arg0.getX(), arg0.getY()));
+						}
+
+						@Override
+						public void mouseClicked(final MouseEvent arg0) {
+							if (dispOn) {
+								final CoordTablero sueltaRaton = VentanaJuegoTablero.this.pixsToCoord(arg0.getX(),
+									arg0.getY());
+								if (VentanaJuegoTablero.this.pulsacionRaton != null
+										&& !VentanaJuegoTablero.this.pulsacionRaton.equals(sueltaRaton)
+										&& VentanaJuegoTablero.this.estaEnTablero(VentanaJuegoTablero.this.pulsacionRaton)
+										&& VentanaJuegoTablero.this.estaEnTablero(sueltaRaton)) {
+									VentanaJuegoTablero.this.arrastresRaton.add(VentanaJuegoTablero.this.pulsacionRaton);
+									VentanaJuegoTablero.this.arrastresRaton.add(sueltaRaton);
+								}
+								VentanaJuegoTablero.access$11(VentanaJuegoTablero.this, null);
+								dispOn=false;
+							}
+						}
+					});
 				}
 			});
 		} catch (Exception ex) {
@@ -184,6 +233,18 @@ public class VentanaJuegoTablero extends JFrame {
 	}
 
 	public CoordTablero readInicioDrag() {
+		while (this.arrastresRaton.isEmpty() && this.isVisible()) {
+			try {
+				Thread.sleep(10L);
+			} catch (InterruptedException ex) {
+			}
+		}
+		if (!this.isVisible()) {
+			return null;
+		}
+		return this.arrastresRaton.get(0);
+	}
+	public CoordTablero readClick() {
 		while (this.arrastresRaton.isEmpty() && this.isVisible()) {
 			try {
 				Thread.sleep(10L);
