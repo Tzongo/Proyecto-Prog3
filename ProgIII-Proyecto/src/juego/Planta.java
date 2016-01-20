@@ -64,6 +64,5 @@ public abstract class Planta extends Bicho {
         this.tablero.setBicho(caram, posicion);
         this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(posicion).getObjeto(), posicion);
     }
-	public void disparar() {
-	}
+	
 }

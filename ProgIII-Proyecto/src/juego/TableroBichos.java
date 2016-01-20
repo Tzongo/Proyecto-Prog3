@@ -136,6 +136,14 @@ public class TableroBichos {
 			this.tablero[destino.getFila()][destino.getColumna()].setPosicionTablero(destino);
 		}
 	}
+	public void mueveBala(final CoordTablero origen, final CoordTablero destino) {
+		this.tablero[destino.getFila()][destino.getColumna()] = this.tablero[origen.getFila()][origen.getColumna()];
+		this.tablero[origen.getFila()][origen.getColumna()] = null;
+		if (this.tablero[destino.getFila()][destino.getColumna()] != null
+				&& (this.tablero[destino.getFila()][destino.getColumna()] instanceof Transparencia)) {
+			this.tablero[destino.getFila()][destino.getColumna()].setPosicionTablero(destino);
+		}
+	}
 
 	public void intercambiaCaramelos(final CoordTablero origen, final CoordTablero destino) {
 		final Bicho temp = this.tablero[destino.getFila()][destino.getColumna()];

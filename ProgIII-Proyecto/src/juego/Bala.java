@@ -11,71 +11,10 @@ import javax.swing.ImageIcon;
 import game.model.CommandCenter;
 
 public class Bala extends Bicho {
-	
-	    private Image bala;
-	    //Coordenadas de la pelota
-	    private int X;
-	    private int Y;
+	private int vida;
 
-	    private int velocidad_X=50;
-	    private int velocidad_Y;
-
-	    private int limite_izquierda=0;
-	    private int limite_derecha;
-	    private int limite_superior=0;
-	    private int limite_inferior;
-
-	     public Bala(int x, int y) {
-	        //coordenadas iniciales
-	        this.X = x; this.Y = y;
-	        //imagen de la pelota
-	        //bala = new ImageIcon(getClass().getResource("pelota.png")).getImage();
-	    }
-
-	    //dado las dimensiones del contendor JPanel
-	   public void LimitesXY(int width, int height) {
-	        limite_derecha  = 500;//width  - bala.getWidth(null);
-	        limite_inferior = 500;//height - bala.getHeight(null);
-	    }
-
-	   public boolean mover() {
-	        X += velocidad_X;
-	        Y += velocidad_Y;
-	        /*if (X < this.limite_izquierda) {
-	            X = 0;
-	            velocidad_X = -velocidad_X;
-	        } else if (X > limite_derecha) {
-	            X = limite_derecha;
-	            velocidad_X = -velocidad_X;
-	        }
-	        if (Y < this.limite_superior) {
-	            Y = 0;
-	            velocidad_Y = -velocidad_Y;
-
-	        } else if (Y > limite_inferior) {
-	            Y =  limite_inferior;
-	            velocidad_Y = -velocidad_Y;
-	        }*/
-			return false;
-	    }
-
-	    public void setVelocidadXY(){
-	        velocidad_X = getNumberRandom(4);
-	        velocidad_Y = getNumberRandom(8);
-	    }
-
-	    public void dibujar(Graphics g) {
-	        Graphics2D g2 =(Graphics2D)g;
-	        g2.fillOval (350, 270, 50, 70);
-	        //g2.drawImage(bala, X, Y, null);
-	    }
-
-	    //devuelve un número aleatorio entre 1 y MAX
-	    private int getNumberRandom(int Max){
-	        return (int) (Math.random()*Max+1);
-	    }
-	
 	public Bala() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -84,10 +23,12 @@ public class Bala extends Bicho {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public void quitar() {
-		// TODO Auto-generated method stub
+	public int getVida() {
+		return vida;
+	}
 
+	public void setVida(int vida) {
+		this.vida = vida;
 	}
 
 	@Override
@@ -95,9 +36,49 @@ public class Bala extends Bicho {
 		// TODO Auto-generated method stub
 
 	}
-	 private final static int REGULAR_BULLET_RADIUS = 40;
-	    private final double FIRE_POWER = 15.0;
 
-	    private Color bulletColor;
-	    public int bulletType;
+	public void quitar() {
+		/*
+		 * if (this.miPuntuador != null) { this.miPuntuador.addPuntos(1); }
+		 */
+		if (this.tablero.getVentana() != null) {
+			this.tablero.getVentana().removeObjeto(this.getObjeto());
+		}
+		this.tablero.quitaObjetoDC(this.posicion);
+		Transparencia caram = new Transparencia(posicion, "Transparencia", 60, 60, this.tablero);
+		this.tablero.setBicho(caram, posicion);
+		this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(posicion).getObjeto(), posicion);
+	}
+
+	@Override
+	public boolean mover() {
+		// TODO Auto-generated method stub
+		final int fila = this.posicion.getFila();
+		final int col = this.posicion.getColumna();
+		final CoordTablero caida = new CoordTablero(fila, col + 1);
+
+		if (this.tablero.getObjetoDC(caida) != null) {
+			if (this.tablero.getObjetoDC(caida) instanceof Zombie) {
+				this.tablero.getObjetoDC(caida).setVida(this.tablero.getObjetoDC(caida).getVida() - 5);
+				if (this.tablero.getObjetoDC(caida).getVida() == 0) {
+					this.tablero.mueveBala(this.posicion, caida);
+					Transparencia caram = new Transparencia(posicion, "Transparencia", 60, 60, this.tablero);
+					this.tablero.setBicho(caram, posicion);
+					this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(posicion).getObjeto(), posicion);
+				} else {
+					return false;
+				}
+			} else if ((this.tablero.getObjetoDC(caida) instanceof Transparencia)) {
+				this.tablero.mueveBala(this.posicion, caida);
+			}
+			this.setPosicionTablero(
+					new CoordTablero(this.getPosicionTablero().getFila(), this.getPosicionTablero().getColumna() + 1));
+			return true;
+		} else {
+			this.tablero.mueveBala(this.posicion, caida);
+			this.setPosicionTablero(
+					new CoordTablero(this.getPosicionTablero().getFila(), this.getPosicionTablero().getColumna() + 1));
+			return true;
+		}
+	}
 }

@@ -1,11 +1,15 @@
 package juego;
 
+import java.util.ArrayList;
+
 import accion.Puntuable;
 import accion.Quitable;
 import juego.Puntuador;
 
 public class Disparador extends Planta implements Quitable, Puntuable{
     private Puntuador miPuntuador;
+    private ArrayList<Bala> balas;
+	
 	public Disparador() {
 		// TODO Auto-generated constructor stub
 	}
@@ -92,5 +96,27 @@ public class Disparador extends Planta implements Quitable, Puntuable{
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+	public boolean disparar() {
+		
+		Bala b = new Bala(new CoordTablero(posicion.getFila(), posicion.getColumna()+1), "Bala", 60, 60, this.tablero);
+		balas=new ArrayList<>();
+		balas.add(b);
+        this.tablero.setBicho(b, posicion);
+        this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(posicion).getObjeto(), new CoordTablero(posicion.getFila(), posicion.getColumna()+1));
+        Boolean s=b.mover();
+        this.tablero.setBicho(this, posicion);
+        this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(posicion).getObjeto(), posicion);
+     
+        return s;
+	}
+	public ArrayList<Bala> getBalas() {
+		return balas;
+	}
+
+	public void setBalas(ArrayList<Bala> balas) {
+		this.balas = balas;
+	}
+	public Bala getBala(int n) {
+		return balas.get(n);
+	}
 }

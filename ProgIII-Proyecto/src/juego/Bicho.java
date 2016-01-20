@@ -52,21 +52,7 @@ public abstract class Bicho implements Quitable, Puntuable, Movible {
 		return "[objetoDeustoCrash (" + this.posicion.getFila() + "," + this.posicion.getColumna() + ")]";
 	}
 
-	/*
-	 * @Override public boolean mover() { // TODO Auto-generated method stub
-	 * final int fila = this.posicion.getFila(); final int col =
-	 * this.posicion.getColumna(); final CoordTablero caida = new
-	 * CoordTablero(fila , col-1);
-	 * System.out.println(this.tablero.getObjetoDC(caida)); if
-	 * (this.tablero.getObjetoDC(caida) != null &&
-	 * !(this.tablero.getObjetoDC(caida) instanceof Transparencia)) { return
-	 * false; } this.tablero.mueveZombie(this.posicion, caida); if
-	 * (this.tablero.getVentana() != null) {
-	 * this.tablero.getVentana().movePosTablero(this.getObjeto(), caida); }
-	 * this.setPosicionTablero(new
-	 * CoordTablero(this.getPosicionTablero().getFila(),
-	 * this.getPosicionTablero().getColumna()-1)); return true; }
-	 */
+	
 	@Override
 	public boolean mover() {
 		// TODO Auto-generated method stub

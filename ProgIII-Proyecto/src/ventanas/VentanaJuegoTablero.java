@@ -34,7 +34,7 @@ public class VentanaJuegoTablero extends JFrame {
 	private long tiempoAnimMsg;
 	private long tiempoFrameAnimMsg;
 	private HiloAnimacion hilo;
-	private HiloAnimacion hilo2;
+	private HiloAnimacion2 hilo2;
 	private HiloAnimacion3 hilo3;
 	private ArrayList<Animacion> animacionesPendientes;
 	private ArrayList<Animacion> animacionesPendientes2;
@@ -43,7 +43,6 @@ public class VentanaJuegoTablero extends JFrame {
 	private JPanelRelleno pRelleno1;
 	private TableroBichos tablero;
 	private ArrayList<Bicho> zList;
-	 private Bala mipelota = new Bala(0, 0);
 	    private Timer timer;
 
 	public VentanaJuegoTablero(final int anchuraVent, final int alturaVent, final int filas, final int columnas,
@@ -121,15 +120,7 @@ public class VentanaJuegoTablero extends JFrame {
 						public void mouseClicked(final MouseEvent arg0) {
 						}
 					});
-					/*mipelota.LimitesXY(getWidth(), getHeight());
-			        //para la animación
-			        timer = new Timer(16, new ActionListener (){
-			            public void actionPerformed(ActionEvent e) {
-			                mipelota.mover();
-			                repaint();
-			            }
-			        });
-*/
+					
 				}
 			});
 		} catch (Exception ex) {
@@ -147,21 +138,7 @@ public class VentanaJuegoTablero extends JFrame {
 		return new Point(Math.round(this.origenX + ct.getColumna() * this.pixelsPorColumna),
 				Math.round(this.origenY + ct.getFila() * this.pixelsPorFila));
 	}
-	 //Controla el inicio y fin de la animación
-    /*public void animar(boolean turnOnOff) {
-        if (turnOnOff) {
-            mipelota.setVelocidadXY();
-            timer.start();
-        } else {
-            timer.stop();
-        }
-    }
-*/
-    //pinta la animación
-    public void paintComponent(Graphics g) {
-        VentanaJuegoTablero.this.pAreaJuego.paintComponent(g);
-        mipelota.dibujar(g);
-    }
+	
 	private void calcTamanyo() {
 		this.pixelsPorFila = (this.pAreaJuego.getHeight()-60) * 1.0f / this.filasTablero;
 		this.pixelsPorColumna = this.pAreaJuego.getWidth() * 1.0f / this.colsTablero;
@@ -282,6 +259,25 @@ public class VentanaJuegoTablero extends JFrame {
 				this.animacionesPendientes.get(pos).xHasta = pHasta.getX();
 				this.animacionesPendientes.get(pos).yHasta = pHasta.getY();
 				this.animacionesPendientes.get(pos).msFaltan = this.tiempoAnimMsg;
+			}
+		}
+	}
+	public void movePosTableroBala(final ObjetoDeJuego oj, final CoordTablero ct) {
+		
+		if (oj != null) {
+			if (this.hilo2 == null) {
+				(this.hilo2 = new HiloAnimacion2()).start();
+			}
+			final Point pHasta = this.coordToPixs(ct);
+			final Animacion a = new Animacion(oj.getX(), pHasta.getX(), oj.getY(), pHasta.getY(), this.tiempoAnimMsg,
+					oj);
+			if (this.animacionesPendientes2.indexOf(a) == -1) {
+				this.animacionesPendientes2.add(a);
+			} else {
+				final int pos = this.animacionesPendientes2.indexOf(a);
+				this.animacionesPendientes2.get(pos).xHasta = pHasta.getX();
+				this.animacionesPendientes2.get(pos).yHasta = pHasta.getY();
+				this.animacionesPendientes2.get(pos).msFaltan = this.tiempoAnimMsg;
 			}
 		}
 	}
@@ -425,28 +421,6 @@ public class VentanaJuegoTablero extends JFrame {
 				}
 			}
 		}
-		
-		/*@Override
-		public void run() {
-			while (!Thread.interrupted()) {
-				try {
-					Thread.sleep(1000L);
-				} catch (InterruptedException e) {
-					break;
-				}
-
-				for (int i = animacionesPendientes2.size() - 1; i >= 0; --i) {
-					final Animacion a = animacionesPendientes2.get(i);
-					if (a.oj != null) {
-						a.oj.setLocation(a.calcNextFrame(tiempoFrameAnimMsg));
-					}
-					if (a.finAnimacion()) {
-						animacionesPendientes2.remove(i);
-					}
-				}
-				animaciones2(tablero, zList);
-			}
-		}*/
 	}
 	class HiloAnimacion3 extends Thread {
 		@Override

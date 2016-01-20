@@ -112,24 +112,6 @@ public class PlantasVsZombies {
 			}
 		}
 	}
-
-	public static void movimientos3(VentanaJuegoTablero v) {
-		for (int f = tablero.getFilas() - 1; f >= 0; --f) {
-			for (int c = 0; c < tablero.getColumnas(); ++c) {
-				final CoordTablero ct = new CoordTablero(f, c);
-				final Bicho cm = tablero.getObjetoDC(ct);
-				if (cm instanceof Planta) {
-					ObjetoDeJuego oj = cm.getObjeto();
-					Bala b = new Bala(oj.getX(), oj.getY());
-					if (b.mover()) {
-						v.animaciones3(oj, ct);
-						v.repaint();
-					}
-
-				}
-			}
-		}
-	}
 	public static void mataZombies(VentanaJuegoTablero v) {
 		for (int f = tablero.getFilas() - 1; f >= 0; --f) {
 			for (int c = 0; c < tablero.getColumnas(); ++c) {
@@ -142,19 +124,25 @@ public class PlantasVsZombies {
 			}
 		}
 	}
-	
-	public static void diparos(VentanaJuegoTablero v) {
+	private static void disparos(VentanaJuegoTablero v) {
+		// TODO Auto-generated method stub
 		for (int f = tablero.getFilas() - 1; f >= 0; --f) {
 			for (int c = 0; c < tablero.getColumnas(); ++c) {
 				final CoordTablero ct = new CoordTablero(f, c);
 				final Bicho cm = tablero.getObjetoDC(ct);
-				if (cm instanceof Disparador) {
-					ObjetoDeJuego oj = cm.getObjeto();
-					((Disparador) cm).disparar();
+				if (cm instanceof Disparador ) {
+					if (((Disparador) cm).disparar()) {
+					ArrayList<Bala> balas=((Disparador) cm).getBalas();
+					for (int i = 0; i < balas.size(); i++) {
+						v.movePosTableroBala(((Disparador) cm).getBala(i).getObjeto(), ((Disparador) cm).getBala(i).getPosicionTablero());
+					}
+					
+					}
 				}
 			}
 		}
 	}
+
 	public static void main(final String[] args) {
 		final int FILAS_COLS = 3;
 		int numMovs = 0;
@@ -179,6 +167,7 @@ public class PlantasVsZombies {
 			tablero.distribuyeZombiesAlAzar(60, 60);
 			System.out.println(tablero.toString());
 			mataZombies(v);
+			disparos(v);
 			/*
 			 * final CoordTablero c2 = v.readInicioDrag();
 			 * System.out.println(c2+"c2"); if (c2 != null) { final CoordTablero
@@ -207,4 +196,6 @@ public class PlantasVsZombies {
 		v.esperaUnRato(5000);
 		v.finish();
 	}
+
+	
 }
