@@ -166,7 +166,7 @@ public class PlantasVsZombies {
 			// movimientos3(v);
 			tablero.distribuyeZombiesAlAzar(60, 60);
 			System.out.println(tablero.toString());
-			mataZombies(v);
+			//mataZombies(v);
 			disparos(v);
 			/*
 			 * final CoordTablero c2 = v.readInicioDrag();
