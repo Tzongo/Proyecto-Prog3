@@ -181,7 +181,7 @@ private static void añadirP(VentanaJuegoTablero v) {
 			System.out.println(tablero.toString());
 			// mataZombies(v);
 			disparos(v);
-			añadirP(v);
+			//añadirP(v);
 			/*
 			 * final CoordTablero c2 = v.readInicioDrag();
 			 * System.out.println(c2+"c2"); if (c2 != null) { final CoordTablero

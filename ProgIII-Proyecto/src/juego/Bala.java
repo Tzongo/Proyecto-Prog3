@@ -61,74 +61,57 @@ public class Bala extends Bicho {
 
 			if (this.tablero.getObjetoDC(caida) != null) {
 				if (this.tablero.getObjetoDC(caida) instanceof Zombie) {
-					this.tablero.getObjetoDC(caida).setVida(this.tablero.getObjetoDC(caida).getVida() - 5);
-
+					if (this.tablero.getObjetoDC(caida).getVida()>0) {
+						this.tablero.getObjetoDC(caida)
+							.setVida(this.tablero.getObjetoDC(caida).getVida() - 50);
+					}
 					if (this.tablero.getObjetoDC(caida).getVida() <= 0) {
 						this.quitar();
 						this.tablero.getObjetoDC(caida).quitar();
-						this.tablero.mueveBala(this.posicion, caida);
-						// Transparencia caram = new Transparencia(posicion,
-						// "Transparencia", 60, 60, this.tablero);
-						// this.tablero.setBicho(caram, posicion);
-						// this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(posicion).getObjeto(),
-						// posicion);
+						
 					} else {
 						this.quitar();
 						return false;
 					}
 				} else if (this.tablero.getObjetoDC(
 						new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())) instanceof Zombie) {
-					this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()))
-							.setVida(this.tablero.getObjetoDC(caida).getVida() - 5);
+					if (this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())).getVida()>0) {
+						this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()))
+							.setVida(this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())).getVida() - 50);
+					}
+					
 
 					if (this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()))
 							.getVida() <= 0) {
 						this.quitar();
 						this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()))
 								.quitar();
-						this.tablero.mueveBala(this.posicion,
-								new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()));
-						// Transparencia caram = new Transparencia(posicion,
-						// "Transparencia", 60, 60, this.tablero);
-						// this.tablero.setBicho(caram, posicion);
-						// this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(new
-						// CoordTablero(this.posicion.getFila(),
-						// this.posicion.getColumna())).getObjeto(), new
-						// CoordTablero(this.posicion.getFila(),
-						// this.posicion.getColumna()));
-					} else {
-						this.quitar();
-						return false;
-					}
-				} else if (this.tablero.getObjetoDC(
-						new CoordTablero(this.posicion.getFila(), this.posicion.getColumna() + 2)) instanceof Zombie) {
-					this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna() + 2))
-							.setVida(this.tablero.getObjetoDC(caida).getVida() - 5);
-
-					if (this.tablero
-							.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna() + 2))
-							.getVida() <= 0) {
-						this.quitar();
-						this.tablero
-								.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna() + 2))
-								.quitar();
-						this.tablero.mueveBala(this.posicion,
-								new CoordTablero(this.posicion.getFila(), this.posicion.getColumna() + 2));
-						// Transparencia caram = new Transparencia(posicion,
-						// "Transparencia", 60, 60, this.tablero);
-						// this.tablero.setBicho(caram, new
-						// CoordTablero(this.posicion.getFila(),
-						// this.posicion.getColumna()+2));
-						// this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(new
-						// CoordTablero(this.posicion.getFila(),
-						// this.posicion.getColumna()+2)).getObjeto(), new
-						// CoordTablero(this.posicion.getFila(),
-						// this.posicion.getColumna()));
+						
 					} else {
 						this.quitar();
 						return false;
 					}
 				} else if ((this.tablero.getObjetoDC(caida) instanceof Transparencia)) {
+					if (this.tablero.getObjetoDC(
+							new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())) instanceof Zombie) {
+						if (this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())).getVida()>0) {
+							this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()))
+								.setVida(this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())).getVida() - 50);
+						}
+						
+
+						if (this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()))
+								.getVida() <= 0) {
+							this.quitar();
+							this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()))
+									.quitar();
+							
+						} else {
+							this.quitar();
+							return false;
+						}
+					}
+					else
 					this.tablero.mueveBala(this.posicion, caida);
 				}
 				this.setPosicionTablero(new CoordTablero(this.getPosicionTablero().getFila(),
@@ -139,7 +122,7 @@ public class Bala extends Bicho {
 						new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())) instanceof Zombie) {
 					if (this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())).getVida()>0) {
 						this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()))
-							.setVida(this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())).getVida() - 5);
+							.setVida(this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())).getVida() - 50);
 					}
 					
 
@@ -148,52 +131,12 @@ public class Bala extends Bicho {
 						this.quitar();
 						this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()))
 								.quitar();
-						this.tablero.mueveBala(this.posicion,
-								new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()));
-						// Transparencia caram = new Transparencia(posicion,
-						// "Transparencia", 60, 60, this.tablero);
-						// this.tablero.setBicho(caram, posicion);
-						// this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(new
-						// CoordTablero(this.posicion.getFila(),
-						// this.posicion.getColumna())).getObjeto(), new
-						// CoordTablero(this.posicion.getFila(),
-						// this.posicion.getColumna()));
+						
 					} else {
 						this.quitar();
 						return false;
 					}
-				} else if (this.tablero.getObjetoDC(
-						new CoordTablero(this.posicion.getFila(), this.posicion.getColumna() + 2)) instanceof Zombie) {
-					
-					if (this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()+2)).getVida()>0) {
-						this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()+2))
-						.setVida(this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()+2)).getVida() - 5);
-				}
-
-					if (this.tablero
-							.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna() + 2))
-							.getVida() <= 0) {
-						this.quitar();
-						this.tablero
-								.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna() + 2))
-								.quitar();
-						this.tablero.mueveBala(this.posicion,
-								new CoordTablero(this.posicion.getFila(), this.posicion.getColumna() + 2));
-						// Transparencia caram = new Transparencia(posicion,
-						// "Transparencia", 60, 60, this.tablero);
-						// this.tablero.setBicho(caram, new
-						// CoordTablero(this.posicion.getFila(),
-						// this.posicion.getColumna()+2));
-						// this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(new
-						// CoordTablero(this.posicion.getFila(),
-						// this.posicion.getColumna()+2)).getObjeto(), new
-						// CoordTablero(this.posicion.getFila(),
-						// this.posicion.getColumna()));
-					} else {
-						this.quitar();
-						return false;
-					}
-				} else {
+				}else {
 					this.tablero.mueveBala(this.posicion, caida);
 					this.setPosicionTablero(new CoordTablero(this.getPosicionTablero().getFila(),
 							this.getPosicionTablero().getColumna() + 1));

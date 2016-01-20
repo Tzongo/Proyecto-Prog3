@@ -58,7 +58,7 @@ public class TableroBichos {
 				} else if (c == 0 && (f == 0 || f == 1 || f == 2)) {
 					final Sol sol = new Sol(new CoordTablero(f, c), anchoBicho, altoBicho, this);
 					this.tablero[f][c] = sol;
-				} else if (c == 1 && (f == 0 /*|| f == 1 || f == 2*/)) {
+				} else if (c == 1 && (f == 0 || f == 1 || f == 2)) {
 					final Disparador disp = new Disparador(new CoordTablero(f, c), anchoBicho, altoBicho, this);
 					this.tablero[f][c] = disp;
 				} else {
@@ -167,7 +167,12 @@ public class TableroBichos {
 				} else if (this.tablero[f][c] instanceof Planta) {
 					final Planta cud = (Planta) this.tablero[f][c];
 					ret = String.valueOf(ret) + cud.getFuncion() + "p ";
-				} else {
+				}
+				else if (this.tablero[f][c] instanceof Bala) {
+					final Bala cud = (Bala) this.tablero[f][c];
+					ret = String.valueOf(ret) + "B ";
+				}
+				else {
 					ret = String.valueOf(ret) + "* ";
 				}
 			}

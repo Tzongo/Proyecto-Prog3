@@ -72,5 +72,16 @@ public abstract class Bicho implements Quitable, Puntuable, Movible {
 				new CoordTablero(this.getPosicionTablero().getFila(), this.getPosicionTablero().getColumna() - 1));
 		return true;
 	}
-
+	public void quitar() {
+        /*if (this.miPuntuador != null) {
+            this.miPuntuador.addPuntos(1);
+        }*/
+        if (this.tablero.getVentana() != null) {
+            this.tablero.getVentana().removeObjeto(this.getObjeto());
+        }
+        this.tablero.quitaObjetoDC(this.posicion);
+        Transparencia caram = new Transparencia(posicion,"Transparencia", 60, 60, this.tablero);
+        this.tablero.setBicho(caram, posicion);
+        this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(posicion).getObjeto(), posicion);
+    }
 }

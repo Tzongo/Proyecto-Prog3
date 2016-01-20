@@ -104,13 +104,13 @@ public class Disparador extends Planta implements Quitable, Puntuable{
 		Bala b = new Bala(new CoordTablero(posicion.getFila(), posicion.getColumna()+1), "Bala", 60, 60, this.tablero);
 		
 		balas.add(b);
-        this.tablero.setBicho(b, posicion);
-        this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(posicion).getObjeto(), new CoordTablero(posicion.getFila(), posicion.getColumna()+1));
+        this.tablero.setBicho(b, new CoordTablero(posicion.getFila(), posicion.getColumna()+1));
+        this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(new CoordTablero(posicion.getFila(), posicion.getColumna()+1)).getObjeto(), new CoordTablero(posicion.getFila(), posicion.getColumna()+1));
         for (int i = 0; i < balas.size(); i++) {
             Boolean s=balas.get(i).mover();
 		}
-        this.tablero.setBicho(this, posicion);
-        this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(posicion).getObjeto(), posicion);
+        this.tablero.setBicho(this, this.posicion);
+        this.tablero.getVentana().addObjeto(this.tablero.getObjetoDC(this.posicion).getObjeto(), this.posicion);
      
 	}
 	public ArrayList<Bala> getBalas() {
