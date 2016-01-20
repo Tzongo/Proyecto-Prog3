@@ -52,7 +52,7 @@ public class TableroBichos {
 
 		for (int f = 0; f < this.filas; ++f) {
 			for (int c = 0; c < this.columnas; ++c) {
-				if ((f == 0 /*|| f == 1 || f == this.getFilas() - 1*/) && (c == 9)) {
+				if ((f == 0 /* || f == 1 || f == this.getFilas() - 1 */) && (c == 9)) {
 					final Minizombie zombie = new Minizombie(new CoordTablero(f, c), anchoBicho, altoBicho, this);
 					this.tablero[f][c] = zombie;
 				} else if (c == 0 && (f == 0 || f == 1 || f == 2)) {
@@ -71,19 +71,21 @@ public class TableroBichos {
 	}
 
 	private int random(int max) {
-		int num=(int)Math.floor(Math.random()*(0-(max+1))+(max+1));
-        return num;
+		int num = (int) Math.floor(Math.random() * (0 - (max + 1)) + (max + 1));
+		return num;
 	}
 
 	public void distribuyeZombiesAlAzar(final int anchoBicho, final int altoBicho) {
-		int f= random(2);
-		if (this.tablero[f][9]==null) {
-			final Minizombie zombie = new Minizombie(new CoordTablero(f, 9), anchoBicho, altoBicho, this);
-			this.tablero[f][9] = zombie;
-			this.miVentana.addObjeto(zombie.getObjeto(), new CoordTablero(f, 9));
+		for (int i = 0; i < 4; i++) {
+			System.out.println(this.toString());
+			int f = random(2);
+			if (this.tablero[f][9] == null || this.tablero[f][9] instanceof Bala|| this.tablero[f][9] instanceof Transparencia) {
+				final Minizombie zombie = new Minizombie(new CoordTablero(f, 9), anchoBicho, altoBicho, this);
+				this.tablero[f][9] = zombie;
+				this.miVentana.addObjeto(zombie.getObjeto(), new CoordTablero(f, 9));
+			}
 		}
-					
-		
+
 	}
 
 	public void reponerFilaOculta() {
@@ -136,6 +138,7 @@ public class TableroBichos {
 			this.tablero[destino.getFila()][destino.getColumna()].setPosicionTablero(destino);
 		}
 	}
+
 	public void mueveBala(final CoordTablero origen, final CoordTablero destino) {
 		this.tablero[destino.getFila()][destino.getColumna()] = this.tablero[origen.getFila()][origen.getColumna()];
 		this.tablero[origen.getFila()][origen.getColumna()] = null;
@@ -167,12 +170,10 @@ public class TableroBichos {
 				} else if (this.tablero[f][c] instanceof Planta) {
 					final Planta cud = (Planta) this.tablero[f][c];
 					ret = String.valueOf(ret) + cud.getFuncion() + "p ";
-				}
-				else if (this.tablero[f][c] instanceof Bala) {
+				} else if (this.tablero[f][c] instanceof Bala) {
 					final Bala cud = (Bala) this.tablero[f][c];
 					ret = String.valueOf(ret) + "B ";
-				}
-				else {
+				} else {
 					ret = String.valueOf(ret) + "* ";
 				}
 			}

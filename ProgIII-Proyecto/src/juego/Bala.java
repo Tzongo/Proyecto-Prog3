@@ -12,6 +12,7 @@ import game.model.CommandCenter;
 
 public class Bala extends Bicho {
 	private int vida;
+	private int ataque=25;
 
 	public Bala() {
 		super();
@@ -63,7 +64,7 @@ public class Bala extends Bicho {
 				if (this.tablero.getObjetoDC(caida) instanceof Zombie) {
 					if (this.tablero.getObjetoDC(caida).getVida()>0) {
 						this.tablero.getObjetoDC(caida)
-							.setVida(this.tablero.getObjetoDC(caida).getVida() - 50);
+							.setVida(this.tablero.getObjetoDC(caida).getVida() - ataque);
 					}
 					if (this.tablero.getObjetoDC(caida).getVida() <= 0) {
 						this.quitar();
@@ -77,7 +78,7 @@ public class Bala extends Bicho {
 						new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())) instanceof Zombie) {
 					if (this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())).getVida()>0) {
 						this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()))
-							.setVida(this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())).getVida() - 50);
+							.setVida(this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())).getVida() - ataque);
 					}
 					
 
@@ -96,7 +97,7 @@ public class Bala extends Bicho {
 							new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())) instanceof Zombie) {
 						if (this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())).getVida()>0) {
 							this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()))
-								.setVida(this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())).getVida() - 50);
+								.setVida(this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())).getVida() - ataque);
 						}
 						
 
@@ -122,7 +123,7 @@ public class Bala extends Bicho {
 						new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())) instanceof Zombie) {
 					if (this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())).getVida()>0) {
 						this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna()))
-							.setVida(this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())).getVida() - 50);
+							.setVida(this.tablero.getObjetoDC(new CoordTablero(this.posicion.getFila(), this.posicion.getColumna())).getVida() - ataque);
 					}
 					
 
